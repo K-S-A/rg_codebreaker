@@ -1,3 +1,5 @@
 --format Fuubar
 --color
+--format documentation --out spec/data/rspec.txt
+--format h --out spec/data/rspec.html
 --require spec_helper
