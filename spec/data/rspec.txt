@@ -1,32 +1,16 @@
 
-Randomized with seed 25949
+Randomized with seed 63960
 
 RgCodebreaker::Game
   #start
-[31m    saves secret code (FAILED - 1)[0m
-[31m    saves secret code with 4 numbers from 1 to 6 (FAILED - 2)[0m
+[32m    saves secret code[0m
+[32m    saves secret code with numbers from 1 to 6[0m
+[32m    saves 4 numbers secret code[0m
+    while each time game starts
+[32m      generates unique code that not equal to previous[0m
 
-Failures:
+Finished in 0.0112 seconds (files took 0.16877 seconds to load)
+[32m4 examples, 0 failures[0m
 
-  1) RgCodebreaker::Game#start saves secret code
-     [31mFailure/Error: game.start[0m
-     [31mNoMethodError:[0m
-     [31m  undefined method `start' for #<RgCodebreaker::Game:0x00000000ee75f0>[0m
-     [36m# ./spec/rg_codebreaker_spec.rb:9:in `block (3 levels) in <module:RgCodebreaker>'[0m
-
-  2) RgCodebreaker::Game#start saves secret code with 4 numbers from 1 to 6
-     [31mFailure/Error: game.start[0m
-     [31mNoMethodError:[0m
-     [31m  undefined method `start' for #<RgCodebreaker::Game:0x00000000f569f0>[0m
-     [36m# ./spec/rg_codebreaker_spec.rb:9:in `block (3 levels) in <module:RgCodebreaker>'[0m
-
-Finished in 0.00947 seconds (files took 0.14914 seconds to load)
-[31m2 examples, 2 failures[0m
-
-Failed examples:
-
-[31mrspec ./spec/rg_codebreaker_spec.rb:12[0m [36m# RgCodebreaker::Game#start saves secret code[0m
-[31mrspec ./spec/rg_codebreaker_spec.rb:20[0m [36m# RgCodebreaker::Game#start saves secret code with 4 numbers from 1 to 6[0m
-
-Randomized with seed 25949
+Randomized with seed 63960
 

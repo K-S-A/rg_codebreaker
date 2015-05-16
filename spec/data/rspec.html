@@ -287,43 +287,23 @@ a {
 <div id="div_group_2" class="example_group passed">
   <dl style="margin-left: 15px;">
   <dt id="example_group_2" class="passed">#start</dt>
-    <script type="text/javascript">makeRed('rspec-header');</script>
-    <script type="text/javascript">makeRed('div_group_2');</script>
-    <script type="text/javascript">makeRed('example_group_2');</script>
+    <script type="text/javascript">moveProgressBar('25.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">saves secret code</span><span class='duration'>0.00329s</span></dd>
     <script type="text/javascript">moveProgressBar('50.0');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">saves secret code</span>
-      <span class="duration">0.00021s</span>
-      <div class="failure" id="failure_1">
-        <div class="message"><pre>undefined method `start&#39; for #&lt;RgCodebreaker::Game:0x00000000ee75f0&gt;</pre></div>
-        <div class="backtrace"><pre>./spec/rg_codebreaker_spec.rb:9:in `block (3 levels) in &lt;module:RgCodebreaker&gt;&#39;</pre></div>
-    <pre class="ruby"><code><span class="linenum">7</span>
-<span class="linenum">8</span>      before do
-<span class="offending"><span class="linenum">9</span>        game.start</span>
-<span class="linenum">10</span>      end
-<span class="linenum">11</span>
-<span class="linenum">12</span><span class="comment"># Install the coderay gem to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
-    <script type="text/javascript">moveProgressBar('100.0');</script>
-    <dd class="example failed">
-      <span class="failed_spec_name">saves secret code with 4 numbers from 1 to 6</span>
-      <span class="duration">0.00021s</span>
-      <div class="failure" id="failure_2">
-        <div class="message"><pre>undefined method `start&#39; for #&lt;RgCodebreaker::Game:0x00000000f569f0&gt;</pre></div>
-        <div class="backtrace"><pre>./spec/rg_codebreaker_spec.rb:9:in `block (3 levels) in &lt;module:RgCodebreaker&gt;&#39;</pre></div>
-    <pre class="ruby"><code><span class="linenum">7</span>
-<span class="linenum">8</span>      before do
-<span class="offending"><span class="linenum">9</span>        game.start</span>
-<span class="linenum">10</span>      end
-<span class="linenum">11</span>
-<span class="linenum">12</span><span class="comment"># Install the coderay gem to get syntax highlighting</span></code></pre>
-      </div>
-    </dd>
+    <dd class="example passed"><span class="passed_spec_name">saves secret code with numbers from 1 to 6</span><span class='duration'>0.00080s</span></dd>
+    <script type="text/javascript">moveProgressBar('75.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">saves 4 numbers secret code</span><span class='duration'>0.00117s</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.00947 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "2 examples, 2 failures";</script>
+<div id="div_group_3" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_3" class="passed">while each time game starts</dt>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">generates unique code that not equal to previous</span><span class='duration'>0.00147s</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.01120 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "4 examples, 0 failures";</script>
 </div>
 </div>
 </body>
