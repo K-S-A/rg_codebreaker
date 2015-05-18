@@ -13,11 +13,14 @@ module RgCodebreaker
     def start(code = generate_code)
       @secret_code = code
       @out.puts "Welcome to CODEBREAKER!\nPlease, enter your guess (length - #{SECRET_CODE_LENGTH}, maximum attempts - #@attempts): "
+      #guess = @out.gets.chomp
+      #validate(guess)
+      #reply_message(guess)
       #try = validate(gets.chomp)
     end
     
     def generate_code
-      ((1..6).to_a * SECRET_CODE_LENGTH).shuffle[0..SECRET_CODE_LENGTH - 1].join("")
+      ((1..6).to_a * SECRET_CODE_LENGTH).shuffle[1..SECRET_CODE_LENGTH].join("")
     end
     
     def validate(guess)
@@ -26,19 +29,17 @@ module RgCodebreaker
     
     def exact_match(guess)
       exact_num = 0
-      (0..3).each do |i|
-        exact_num += 1 if @secret_code[i] == guess[i]
-      end
+      (0..3).each { |i| exact_num += 1 if @secret_code[i] == guess[i] }
       exact_num
     end
     
     def total_match(guess)
-      gues = "" + guess
+      guess = "" + guess
       total_num = 0
       @secret_code.each_char do |i|
-        if gues.include?(i)
+        if  guess.include?(i)
           total_num += 1
-          gues[gues.index(i)] = ""
+           guess[guess.index(i)] = ""
         end
       end
       total_num
@@ -46,6 +47,10 @@ module RgCodebreaker
     
     def number_match(guess)
       total_match(guess) - exact_match(guess)
+    end
+    
+    def reply_message(guess)
+      @out.puts "+" * exact_match(guess) + "-" * number_match(guess)
     end
   
   end

@@ -21,7 +21,19 @@ module RgCodebreaker
         expect(out).to receive(:puts).with(/maximum attempts - 8/).once
         start
       end
-      xit 'should test gets' do
+      context 'while receive input' do
+        xit 'should output message' do
+          expect(out).to receive(:gets).and_return("77777")
+          expect(out).to receive(:puts).with("++").once
+          start
+        end
+      end
+      context 'when guess submitted' do
+        before { game.start('1234') }
+        it 'should output "" if no matches' do
+          expect(out).to receive(:puts).with("").once
+          game.reply_message('5555')
+        end
       end
     end
     
@@ -63,6 +75,7 @@ module RgCodebreaker
         end
       end
     end
+    
     context '#exact_match' do
       before { game.start('1232') }  
       it 'should return 4 if guess match secret code' do
@@ -83,7 +96,6 @@ module RgCodebreaker
     end
     
     context '#total_match' do
-      
       context 'with numbers that appear once' do
         before { game.start('1234') } 
         it 'should return 4 if 4 matches' do
@@ -102,7 +114,6 @@ module RgCodebreaker
           expect(game.total_match('5555')).to eq(0)
         end
       end
-      
       context 'with numbers that appear twice' do
         before { game.start('1334') } 
         it 'should return 3 if 3 matches' do
@@ -133,7 +144,6 @@ module RgCodebreaker
           expect(game.number_match('1235')).to eq(0)
         end
       end
-      
       context 'with numbers that appear twice' do
         before { game.start('1123') } 
         it 'should return 4 if 4 number matches' do
@@ -146,12 +156,16 @@ module RgCodebreaker
           expect(game.number_match('1213')).to eq(2)
         end
       end
-      
-      
-      
-      
-      
-      
     end
+    
+    context '' do
+    
+    
+    end  
+          
+      
+      
+      
+    
   end
 end
