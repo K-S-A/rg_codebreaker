@@ -1,16 +1,62 @@
 
-Randomized with seed 63960
+Randomized with seed 16408
 
 RgCodebreaker::Game
+  #exact_match
+[32m    should return 3 if 1 exact match[0m
+[32m    should return 4 if guess match secret code[0m
+[32m    should return 3 if 3 exact matches[0m
+[32m    should return 2 if 2 exact matches[0m
+[32m    should return 0 if no exact matches[0m
   #start
-[32m    saves secret code[0m
-[32m    saves secret code with numbers from 1 to 6[0m
+[32m    should set the maximum number of attempts equal to 8[0m
+[32m    should output "Welcome to CODEBREAKER! Please, enter your guess (length - 4"[0m
+[33m    should test gets (PENDING: Temporarily skipped with xit)[0m
+[32m    should output "maximum attempts - 8"[0m
+  #number_match
+    with numbers that appear twice
+[32m      should return 3 if 1 exact and 3 number matches[0m
+[32m      should return 4 if 4 number matches[0m
+[32m      should return 2 if 2 exact and 2 number matches[0m
+    with numbers that appear once
+[32m      should return 3 if 1 exact and 3 number matches[0m
+[32m      should return 4 if 4 number matches[0m
+[32m      should return 0 if 3 exact and 0 number matches[0m
+[32m      should return 2 if 2 exact and 2 number matches[0m
+  #generate_code
 [32m    saves 4 numbers secret code[0m
-    while each time game starts
-[32m      generates unique code that not equal to previous[0m
+[32m    generates secret code[0m
+[32m    should generate unique code that not equal to previous[0m
+[32m    saves secret code with numbers from 1 to 6[0m
+  #validate
+    when guess code is valid
+[32m      should not output[0m
+    should output if guess code
+[32m      shorter than expected[0m
+[32m      longer than expected[0m
+[32m      have numbers outside range 1..6[0m
+[32m      have not only numbers[0m
+  #total_match
+    with numbers that appear twice
+[32m      should return 2 if 2 matches[0m
+[32m      should return 3 if 3 matches[0m
+[32m      should return 1 if 1 matches[0m
+    with numbers that appear once
+[32m      should return 1 if 1 matches[0m
+[32m      should return 4 if 4 matches[0m
+[32m      should return 3 if 3 matches[0m
+[32m      should return 2 if 2 matches[0m
+[32m      should return 0 if 0 matches[0m
 
-Finished in 0.0112 seconds (files took 0.16877 seconds to load)
-[32m4 examples, 0 failures[0m
+Pending: (Failures listed here are expected and do not affect your suite's status)
+[33m
+  1) RgCodebreaker::Game#start should test gets
+[0m[36m     # Temporarily skipped with xit
+[0m[36m     # ./spec/rg_codebreaker_spec.rb:24
+[0m
 
-Randomized with seed 63960
+Finished in 0.04599 seconds (files took 0.17252 seconds to load)
+[33m33 examples, 0 failures, 1 pending[0m
+
+Randomized with seed 16408
 
