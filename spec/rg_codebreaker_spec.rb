@@ -4,8 +4,9 @@ module RgCodebreaker
   describe Game do
   
     let(:out) { double("out").as_null_object }
-    let(:game) { Game.new(out) }
-    let(:start) { game.start }
+    let(:inpt) { double("inpt").as_null_object }
+    let(:game) { Game.new(out, inpt) }
+    let(:start) { game.start('1234') }
     subject(:code) { game.generate_code }
     #subject { game.instance_variable_get(:@secret_code) }
     
@@ -21,19 +22,72 @@ module RgCodebreaker
         expect(out).to receive(:puts).with(/maximum attempts - 8/).once
         start
       end
-      context 'while receive input' do
-        xit 'should output message' do
-          expect(out).to receive(:gets).and_return("77777")
-          expect(out).to receive(:puts).with("++").once
+      context 'while receive invalid input' do
+        it 'should output message "Code must contain 4 digits from 1 to 6."' do
+          allow(inpt).to receive(:gets).and_return('77777')
+          expect(out).to receive(:puts).with('Code must contain 4 digits from 1 to 6.').once
           start
         end
       end
-      context 'when guess submitted' do
-        before { game.start('1234') }
-        it 'should output "" if no matches' do
-          expect(out).to receive(:puts).with("").once
-          game.reply_message('5555')
+      context 'when valid guess submitted' do
+        it 'should output first number of secret code if gets "hint"' do
+          allow(inpt).to receive(:gets).and_return('hint')
+          expect(out).to receive(:puts).with('1').once
+          start
         end
+        it 'should output "no matches" if no matches' do
+          allow(inpt).to receive(:gets).and_return('5555')
+          expect(out).to receive(:puts).with("no matches").once
+          start
+        end
+        it 'should output "+-" if 1 exact and 1 number matches' do
+          allow(inpt).to receive(:gets).and_return('1313')
+          expect(out).to receive(:puts).with("+-").once
+          start
+        end
+        it 'should output "++-" if 2 exact and 1 number matches' do
+          allow(inpt).to receive(:gets).and_return('1253')
+          expect(out).to receive(:puts).with("++-").once
+          start
+        end
+        it 'should output "----" if 4 number matches' do
+          allow(inpt).to receive(:gets).and_return('4321')
+          expect(out).to receive(:puts).with("----").once
+          start
+        end
+        it 'should output "++--" if 2 exact and 2 number matches' do
+          allow(inpt).to receive(:gets).and_return('1243')
+          expect(out).to receive(:puts).with("++--").once
+          start
+        end
+        it 'should output "++++" if secret code is broken' do
+          allow(inpt).to receive(:gets).and_return('1234')
+          expect(out).to receive(:puts).with("++++").once
+          start
+        end
+        
+      end
+    end
+    
+    context '#play_again' do
+      it 'should output "Win!" if secret code is broken' do
+        allow(inpt).to receive(:gets).and_return('1234')
+        expect(out).to receive(:puts).with("Win!").once
+        start
+      end
+      it 'should output "Want to paly again?(y/n): " if secret code is broken' do
+        allow(inpt).to receive(:gets).and_return('1234')
+        expect(out).to receive(:puts).with("Want to paly again?(y/n): ").once
+        start
+      end
+      it 'should start new game when gets "y"' do
+        allow(inpt).to receive(:gets).and_return('1234', 'y')
+        expect(out).to receive(:puts).with(/Welcome to CODEBREAKER!\nPlease, enter your guess \(length - 4/).twice
+        start
+      end
+      it 'should output "Exit." when gets "n"' do
+        allow(inpt).to receive(:gets).and_return('1234', 'n')
+        expect{start}.to raise_error SystemExit
       end
     end
     
@@ -51,27 +105,25 @@ module RgCodebreaker
         expect(code).not_to eq(game.generate_code)
       end
     end
-        
-    context '#validate' do
-      context 'should output if guess code' do
-        before { expect(out).to receive(:puts).with("Code must contain 4 digits from 1 to 6.").once }
-        it 'longer than expected' do
-          game.validate("12345")
-        end
-        it 'shorter than expected' do
-          game.validate("123")
-        end
-        it 'have not only numbers' do
-          game.validate("123d")
-        end
-        it 'have numbers outside range 1..6' do
-          game.validate("7980")
+    
+    context '#valid?' do
+      context 'should be truthy if guess' do
+        it 'have 4 numbers' do
+          expect(game.valid?('1234')).to be_truthy
         end
       end
-      context 'when guess code is valid' do
-        it 'should not output' do
-          expect(out).not_to receive(:puts)
-          game.validate("1234")
+      context 'should be falsey if guess:' do
+        it 'longer than expected' do
+          expect(game.valid?("12345")).to be_falsey
+        end
+        it 'shorter than expected' do
+          expect(game.valid?("123")).to be_falsey
+        end
+        it 'have not only numbers' do
+          expect(game.valid?("123d")).to be_falsey
+        end
+        it 'have numbers outside range 1..6' do
+          expect(game.valid?("7980")).to be_falsey
         end
       end
     end
@@ -130,7 +182,7 @@ module RgCodebreaker
     
     context '#number_match' do
       context 'with numbers that appear once' do
-        before { game.start('1234') } 
+        before { start } 
         it 'should return 4 if 4 number matches' do
           expect(game.number_match('4321')).to eq(4)
         end
@@ -158,9 +210,14 @@ module RgCodebreaker
       end
     end
     
-    context '' do
-    
-    
+    context '#reply_message' do
+      before { game.start('2244') } 
+      it 'should return "no matches" if no total matches' do
+        expect(game.reply_message('5555')).to eq('no matches')
+      end
+      it 'should return "++--" if 2 exact and 2 number matches' do
+        expect(game.reply_message('4242')).to eq('++--')
+      end
     end  
           
       
