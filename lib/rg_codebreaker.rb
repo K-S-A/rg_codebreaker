@@ -64,7 +64,7 @@ module RgCodebreaker
     def hint
       @secret_code[0]
     end
-    
+=begin    
     def play_again
       @out.puts "Win!"
       @out.puts "Want to paly again?(y/n): "
@@ -74,6 +74,6 @@ module RgCodebreaker
         start
       end
     end
-  
+=end  
   end
 end

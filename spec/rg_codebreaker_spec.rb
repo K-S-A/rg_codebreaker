@@ -68,8 +68,8 @@ module RgCodebreaker
         
       end
     end
-    
-    context '#play_again' do
+=begin    
+    context '#play_again' do #???
       it 'should output "Win!" if secret code is broken' do
         allow(inpt).to receive(:gets).and_return('1234')
         expect(out).to receive(:puts).with("Win!").once
@@ -90,7 +90,7 @@ module RgCodebreaker
         expect{start}.to raise_error SystemExit
       end
     end
-    
+=end    
     context '#generate_code' do
       it 'generates secret code' do
         expect(code).not_to be_empty
@@ -139,7 +139,7 @@ module RgCodebreaker
       it 'should return 2 if 2 exact matches' do
         expect(game.exact_match('1255')).to eq(2)
       end
-      it 'should return 3 if 1 exact match' do
+      it 'should return 1 if 1 exact match' do
         expect(game.exact_match('1555')).to eq(1)
       end
       it 'should return 0 if no exact matches' do
@@ -219,8 +219,19 @@ module RgCodebreaker
         expect(game.reply_message('4242')).to eq('++--')
       end
     end  
-          
+      atrs = [[0, 0, 0, "1122", "3344", ""], [1, 1, 0, "1122", "1333", "+"], [1, 0, 1, "1122", "3331", "-"], [2, 2, 0, "1122", "3123", "++"], [2, 1, 1, "1122", "2133", "+-"], [2, 0, 2, "1122", "3213", "--"], [3, 3, 0, "1122", "1322", "+++"], [3, 2, 1, "1122", "2123", "++-"], [3, 1, 2, "1122", "2221", "+--"], [3, 0, 3, "1122", "2213", "---"], [4, 4, 0, "1122", "1122", "++++"], [4, 2, 2, "1122", "2121", "++--"], [4, 1, 3, "1123", "1312", "+---"], [4, 0, 4, "1122", "2211", "----"]] # [total, exact, number matches, secret code, guess, "+-"]   
+    context '#test' do
+    
       
+      atrs.each do |atr|
+        it "should return #{atr[0]} if #{atr[1]} exact and #{atr[2]} number matches" do
+          game.start(atr[3])
+          expect(game.total_match(atr[4])).to eq(atr[0])
+        end
+      end
+    end
+      
+
       
       
     

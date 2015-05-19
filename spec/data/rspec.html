@@ -286,178 +286,172 @@ a {
 </div>
 <div id="div_group_2" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_2" class="passed">#reply_message</dt>
-    <script type="text/javascript">moveProgressBar('2.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return &quot;no matches&quot; if no total matches</span><span class='duration'>0.00127s</span></dd>
-    <script type="text/javascript">moveProgressBar('4.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return &quot;++--&quot; if 2 exact and 2 number matches</span><span class='duration'>0.00042s</span></dd>
+  <dt id="example_group_2" class="passed">#exact_match</dt>
+    <script type="text/javascript">moveProgressBar('2.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 exact matches</span><span class='duration'>0.00552s</span></dd>
+    <script type="text/javascript">moveProgressBar('4.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 1 if 1 exact match</span><span class='duration'>0.00033s</span></dd>
+    <script type="text/javascript">moveProgressBar('6.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 3 if 3 exact matches</span><span class='duration'>0.00025s</span></dd>
+    <script type="text/javascript">moveProgressBar('9.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 0 if no exact matches</span><span class='duration'>0.00024s</span></dd>
+    <script type="text/javascript">moveProgressBar('11.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 4 if guess match secret code</span><span class='duration'>0.00027s</span></dd>
   </dl>
 </div>
 <div id="div_group_3" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_3" class="passed">#number_match</dt>
+  <dt id="example_group_3" class="passed">#valid?</dt>
   </dl>
 </div>
 <div id="div_group_4" class="example_group passed">
   <dl style="margin-left: 30px;">
-  <dt id="example_group_4" class="passed">with numbers that appear once</dt>
-    <script type="text/javascript">moveProgressBar('6.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 exact and 2 number matches</span><span class='duration'>0.00031s</span></dd>
-    <script type="text/javascript">moveProgressBar('8.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 4 if 4 number matches</span><span class='duration'>0.00031s</span></dd>
-    <script type="text/javascript">moveProgressBar('10.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 0 if 3 exact and 0 number matches</span><span class='duration'>0.00030s</span></dd>
-    <script type="text/javascript">moveProgressBar('13.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 3 if 1 exact and 3 number matches</span><span class='duration'>0.00032s</span></dd>
+  <dt id="example_group_4" class="passed">should be falsey if guess:</dt>
+    <script type="text/javascript">moveProgressBar('13.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">have not only numbers</span><span class='duration'>0.00347s</span></dd>
+    <script type="text/javascript">moveProgressBar('16.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">shorter than expected</span><span class='duration'>0.00038s</span></dd>
+    <script type="text/javascript">moveProgressBar('18.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">have numbers outside range 1..6</span><span class='duration'>0.00022s</span></dd>
+    <script type="text/javascript">moveProgressBar('20.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">longer than expected</span><span class='duration'>0.00021s</span></dd>
   </dl>
 </div>
 <div id="div_group_5" class="example_group passed">
   <dl style="margin-left: 30px;">
-  <dt id="example_group_5" class="passed">with numbers that appear twice</dt>
-    <script type="text/javascript">moveProgressBar('15.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 4 if 4 number matches</span><span class='duration'>0.00037s</span></dd>
-    <script type="text/javascript">moveProgressBar('17.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 exact and 2 number matches</span><span class='duration'>0.00030s</span></dd>
-    <script type="text/javascript">moveProgressBar('19.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 3 if 1 exact and 3 number matches</span><span class='duration'>0.00027s</span></dd>
+  <dt id="example_group_5" class="passed">should be truthy if guess</dt>
+    <script type="text/javascript">moveProgressBar('23.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">have 4 numbers</span><span class='duration'>0.00026s</span></dd>
   </dl>
 </div>
 <div id="div_group_6" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_6" class="passed">#start</dt>
-    <script type="text/javascript">moveProgressBar('21.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;Welcome to CODEBREAKER! Please, enter your guess (length - 4&quot;</span><span class='duration'>0.00850s</span></dd>
-    <script type="text/javascript">moveProgressBar('23.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;maximum attempts - 8&quot;</span><span class='duration'>0.00064s</span></dd>
-    <script type="text/javascript">moveProgressBar('26.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should set the maximum number of attempts equal to 8</span><span class='duration'>0.00027s</span></dd>
+  <dt id="example_group_6" class="passed">#reply_message</dt>
+    <script type="text/javascript">moveProgressBar('25.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return &quot;++--&quot; if 2 exact and 2 number matches</span><span class='duration'>0.00033s</span></dd>
+    <script type="text/javascript">moveProgressBar('27.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return &quot;no matches&quot; if no total matches</span><span class='duration'>0.00048s</span></dd>
   </dl>
 </div>
 <div id="div_group_7" class="example_group passed">
-  <dl style="margin-left: 30px;">
-  <dt id="example_group_7" class="passed">while receive invalid input</dt>
-    <script type="text/javascript">moveProgressBar('28.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output message &quot;Code must contain 4 digits from 1 to 6.&quot;</span><span class='duration'>0.00072s</span></dd>
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_7" class="passed">#generate_code</dt>
+    <script type="text/javascript">moveProgressBar('30.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">saves secret code with numbers from 1 to 6</span><span class='duration'>0.00093s</span></dd>
+    <script type="text/javascript">moveProgressBar('32.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">saves 4 numbers secret code</span><span class='duration'>0.00033s</span></dd>
+    <script type="text/javascript">moveProgressBar('34.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should generate unique code that not equal to previous</span><span class='duration'>0.00027s</span></dd>
+    <script type="text/javascript">moveProgressBar('37.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">generates secret code</span><span class='duration'>0.00031s</span></dd>
   </dl>
 </div>
 <div id="div_group_8" class="example_group passed">
-  <dl style="margin-left: 30px;">
-  <dt id="example_group_8" class="passed">when valid guess submitted</dt>
-    <script type="text/javascript">moveProgressBar('30.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;----&quot; if 4 number matches</span><span class='duration'>0.00077s</span></dd>
-    <script type="text/javascript">moveProgressBar('32.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;++++&quot; if secret code is broken</span><span class='duration'>0.00084s</span></dd>
-    <script type="text/javascript">moveProgressBar('34.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output first number of secret code if gets &quot;hint&quot;</span><span class='duration'>0.00074s</span></dd>
-    <script type="text/javascript">moveProgressBar('36.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;+-&quot; if 1 exact and 1 number matches</span><span class='duration'>0.00072s</span></dd>
-    <script type="text/javascript">moveProgressBar('39.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;no matches&quot; if no matches</span><span class='duration'>0.00073s</span></dd>
-    <script type="text/javascript">moveProgressBar('41.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;++-&quot; if 2 exact and 1 number matches</span><span class='duration'>0.00082s</span></dd>
-    <script type="text/javascript">moveProgressBar('43.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;++--&quot; if 2 exact and 2 number matches</span><span class='duration'>0.00075s</span></dd>
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_8" class="passed">#test</dt>
+    <script type="text/javascript">moveProgressBar('39.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return #{atr[0]} if #{atr[0]} number matches</span><span class='duration'>0.00028s</span></dd>
   </dl>
 </div>
 <div id="div_group_9" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_9" class="passed">#generate_code</dt>
-    <script type="text/javascript">moveProgressBar('45.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">saves secret code with numbers from 1 to 6</span><span class='duration'>0.00084s</span></dd>
-    <script type="text/javascript">moveProgressBar('47.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">generates secret code</span><span class='duration'>0.00225s</span></dd>
-    <script type="text/javascript">moveProgressBar('50.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should generate unique code that not equal to previous</span><span class='duration'>0.00028s</span></dd>
-    <script type="text/javascript">moveProgressBar('52.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">saves 4 numbers secret code</span><span class='duration'>0.00033s</span></dd>
+  <dt id="example_group_9" class="passed">#number_match</dt>
   </dl>
 </div>
 <div id="div_group_10" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_10" class="passed">#exact_match</dt>
-    <script type="text/javascript">moveProgressBar('54.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 0 if no exact matches</span><span class='duration'>0.00028s</span></dd>
-    <script type="text/javascript">moveProgressBar('56.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 4 if guess match secret code</span><span class='duration'>0.00031s</span></dd>
-    <script type="text/javascript">moveProgressBar('58.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 exact matches</span><span class='duration'>0.00028s</span></dd>
-    <script type="text/javascript">moveProgressBar('60.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 3 if 3 exact matches</span><span class='duration'>0.00025s</span></dd>
-    <script type="text/javascript">moveProgressBar('63.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 3 if 1 exact match</span><span class='duration'>0.00024s</span></dd>
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_10" class="passed">with numbers that appear twice</dt>
+    <script type="text/javascript">moveProgressBar('41.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 3 if 1 exact and 3 number matches</span><span class='duration'>0.00035s</span></dd>
+    <script type="text/javascript">moveProgressBar('44.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 exact and 2 number matches</span><span class='duration'>0.00030s</span></dd>
+    <script type="text/javascript">moveProgressBar('46.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 4 if 4 number matches</span><span class='duration'>0.00032s</span></dd>
   </dl>
 </div>
 <div id="div_group_11" class="example_group passed">
-  <dl style="margin-left: 15px;">
-  <dt id="example_group_11" class="passed">#play_again</dt>
-    <script type="text/javascript">moveProgressBar('65.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">should start new game when gets &quot;y&quot;</span><span class='duration'>0.00104s</span></dd>
-    <script type="text/javascript">moveProgressBar('67.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;Win!&quot; if secret code is broken</span><span class='duration'>0.00093s</span></dd>
-    <script type="text/javascript">moveProgressBar('69.5');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;Exit.&quot; when gets &quot;n&quot;</span><span class='duration'>0.00200s</span></dd>
-    <script type="text/javascript">moveProgressBar('71.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should output &quot;Want to paly again?(y/n): &quot; if secret code is broken</span><span class='duration'>0.00100s</span></dd>
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_11" class="passed">with numbers that appear once</dt>
+    <script type="text/javascript">moveProgressBar('48.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 exact and 2 number matches</span><span class='duration'>0.00188s</span></dd>
+    <script type="text/javascript">moveProgressBar('51.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 3 if 1 exact and 3 number matches</span><span class='duration'>0.00044s</span></dd>
+    <script type="text/javascript">moveProgressBar('53.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 0 if 3 exact and 0 number matches</span><span class='duration'>0.00031s</span></dd>
+    <script type="text/javascript">moveProgressBar('55.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 4 if 4 number matches</span><span class='duration'>0.00032s</span></dd>
   </dl>
 </div>
 <div id="div_group_12" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_12" class="passed">#valid?</dt>
+  <dt id="example_group_12" class="passed">#total_match</dt>
   </dl>
 </div>
 <div id="div_group_13" class="example_group passed">
   <dl style="margin-left: 30px;">
-  <dt id="example_group_13" class="passed">should be truthy if guess</dt>
-    <script type="text/javascript">moveProgressBar('73.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">have 4 numbers</span><span class='duration'>0.00025s</span></dd>
+  <dt id="example_group_13" class="passed">with numbers that appear twice</dt>
+    <script type="text/javascript">moveProgressBar('58.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 matches</span><span class='duration'>0.00027s</span></dd>
+    <script type="text/javascript">moveProgressBar('60.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 1 if 1 matches</span><span class='duration'>0.00029s</span></dd>
+    <script type="text/javascript">moveProgressBar('62.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 3 if 3 matches</span><span class='duration'>0.00031s</span></dd>
   </dl>
 </div>
 <div id="div_group_14" class="example_group passed">
   <dl style="margin-left: 30px;">
-  <dt id="example_group_14" class="passed">should be falsey if guess:</dt>
-    <script type="text/javascript">moveProgressBar('76.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">have not only numbers</span><span class='duration'>0.00022s</span></dd>
-    <script type="text/javascript">moveProgressBar('78.2');</script>
-    <dd class="example passed"><span class="passed_spec_name">longer than expected</span><span class='duration'>0.00020s</span></dd>
-    <script type="text/javascript">moveProgressBar('80.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">have numbers outside range 1..6</span><span class='duration'>0.00021s</span></dd>
-    <script type="text/javascript">moveProgressBar('82.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">shorter than expected</span><span class='duration'>0.00024s</span></dd>
+  <dt id="example_group_14" class="passed">with numbers that appear once</dt>
+    <script type="text/javascript">moveProgressBar('65.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 matches</span><span class='duration'>0.00032s</span></dd>
+    <script type="text/javascript">moveProgressBar('67.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 1 if 1 matches</span><span class='duration'>0.00026s</span></dd>
+    <script type="text/javascript">moveProgressBar('69.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 3 if 3 matches</span><span class='duration'>0.00036s</span></dd>
+    <script type="text/javascript">moveProgressBar('72.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 0 if 0 matches</span><span class='duration'>0.00026s</span></dd>
+    <script type="text/javascript">moveProgressBar('74.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return 4 if 4 matches</span><span class='duration'>0.00033s</span></dd>
   </dl>
 </div>
 <div id="div_group_15" class="example_group passed">
   <dl style="margin-left: 15px;">
-  <dt id="example_group_15" class="passed">#total_match</dt>
+  <dt id="example_group_15" class="passed">#start</dt>
+    <script type="text/javascript">moveProgressBar('76.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should set the maximum number of attempts equal to 8</span><span class='duration'>0.00022s</span></dd>
+    <script type="text/javascript">moveProgressBar('79.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;maximum attempts - 8&quot;</span><span class='duration'>0.00827s</span></dd>
+    <script type="text/javascript">moveProgressBar('81.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;Welcome to CODEBREAKER! Please, enter your guess (length - 4&quot;</span><span class='duration'>0.00063s</span></dd>
   </dl>
 </div>
 <div id="div_group_16" class="example_group passed">
   <dl style="margin-left: 30px;">
-  <dt id="example_group_16" class="passed">with numbers that appear once</dt>
-    <script type="text/javascript">moveProgressBar('84.7');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 0 if 0 matches</span><span class='duration'>0.00030s</span></dd>
-    <script type="text/javascript">moveProgressBar('86.9');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 4 if 4 matches</span><span class='duration'>0.00029s</span></dd>
-    <script type="text/javascript">moveProgressBar('89.1');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 matches</span><span class='duration'>0.00030s</span></dd>
-    <script type="text/javascript">moveProgressBar('91.3');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 3 if 3 matches</span><span class='duration'>0.00038s</span></dd>
-    <script type="text/javascript">moveProgressBar('93.4');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 1 if 1 matches</span><span class='duration'>0.00026s</span></dd>
+  <dt id="example_group_16" class="passed">when valid guess submitted</dt>
+    <script type="text/javascript">moveProgressBar('83.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;++-&quot; if 2 exact and 1 number matches</span><span class='duration'>0.00079s</span></dd>
+    <script type="text/javascript">moveProgressBar('86.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;+-&quot; if 1 exact and 1 number matches</span><span class='duration'>0.00084s</span></dd>
+    <script type="text/javascript">moveProgressBar('88.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;++--&quot; if 2 exact and 2 number matches</span><span class='duration'>0.00074s</span></dd>
+    <script type="text/javascript">moveProgressBar('90.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;no matches&quot; if no matches</span><span class='duration'>0.00070s</span></dd>
+    <script type="text/javascript">moveProgressBar('93.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;++++&quot; if secret code is broken</span><span class='duration'>0.00090s</span></dd>
+    <script type="text/javascript">moveProgressBar('95.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output &quot;----&quot; if 4 number matches</span><span class='duration'>0.00074s</span></dd>
+    <script type="text/javascript">moveProgressBar('97.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should output first number of secret code if gets &quot;hint&quot;</span><span class='duration'>0.00069s</span></dd>
   </dl>
 </div>
 <div id="div_group_17" class="example_group passed">
   <dl style="margin-left: 30px;">
-  <dt id="example_group_17" class="passed">with numbers that appear twice</dt>
-    <script type="text/javascript">moveProgressBar('95.6');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 3 if 3 matches</span><span class='duration'>0.00035s</span></dd>
-    <script type="text/javascript">moveProgressBar('97.8');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 1 if 1 matches</span><span class='duration'>0.00028s</span></dd>
+  <dt id="example_group_17" class="passed">while receive invalid input</dt>
     <script type="text/javascript">moveProgressBar('100.0');</script>
-    <dd class="example passed"><span class="passed_spec_name">should return 2 if 2 matches</span><span class='duration'>0.00030s</span></dd>
+    <dd class="example passed"><span class="passed_spec_name">should output message &quot;Code must contain 4 digits from 1 to 6.&quot;</span><span class='duration'>0.00071s</span></dd>
   </dl>
 </div>
-<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.05736 seconds</strong>";</script>
-<script type="text/javascript">document.getElementById('totals').innerHTML = "46 examples, 0 failures";</script>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.05572 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "43 examples, 0 failures";</script>
 </div>
 </div>
 </body>

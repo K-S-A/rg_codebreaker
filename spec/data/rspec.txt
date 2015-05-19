@@ -1,72 +1,69 @@
 
-Randomized with seed 52265
+Randomized with seed 49400
 
 RgCodebreaker::Game
-  #reply_message
-[32m    should return "no matches" if no total matches[0m
-[32m    should return "++--" if 2 exact and 2 number matches[0m
-  #number_match
-    with numbers that appear once
-[32m      should return 2 if 2 exact and 2 number matches[0m
-[32m      should return 4 if 4 number matches[0m
-[32m      should return 0 if 3 exact and 0 number matches[0m
-[32m      should return 3 if 1 exact and 3 number matches[0m
-    with numbers that appear twice
-[32m      should return 4 if 4 number matches[0m
-[32m      should return 2 if 2 exact and 2 number matches[0m
-[32m      should return 3 if 1 exact and 3 number matches[0m
-  #start
-[32m    should output "Welcome to CODEBREAKER! Please, enter your guess (length - 4"[0m
-[32m    should output "maximum attempts - 8"[0m
-[32m    should set the maximum number of attempts equal to 8[0m
-    while receive invalid input
-[32m      should output message "Code must contain 4 digits from 1 to 6."[0m
-    when valid guess submitted
-[32m      should output "----" if 4 number matches[0m
-[32m      should output "++++" if secret code is broken[0m
-[32m      should output first number of secret code if gets "hint"[0m
-[32m      should output "+-" if 1 exact and 1 number matches[0m
-[32m      should output "no matches" if no matches[0m
-[32m      should output "++-" if 2 exact and 1 number matches[0m
-[32m      should output "++--" if 2 exact and 2 number matches[0m
-  #generate_code
-[32m    saves secret code with numbers from 1 to 6[0m
-[32m    generates secret code[0m
-[32m    should generate unique code that not equal to previous[0m
-[32m    saves 4 numbers secret code[0m
   #exact_match
+[32m    should return 2 if 2 exact matches[0m
+[32m    should return 1 if 1 exact match[0m
+[32m    should return 3 if 3 exact matches[0m
 [32m    should return 0 if no exact matches[0m
 [32m    should return 4 if guess match secret code[0m
-[32m    should return 2 if 2 exact matches[0m
-[32m    should return 3 if 3 exact matches[0m
-[32m    should return 3 if 1 exact match[0m
-  #play_again
-[32m    should start new game when gets "y"[0m
-[32m    should output "Win!" if secret code is broken[0m
-[32m    should output "Exit." when gets "n"[0m
-[32m    should output "Want to paly again?(y/n): " if secret code is broken[0m
   #valid?
-    should be truthy if guess
-[32m      have 4 numbers[0m
     should be falsey if guess:
 [32m      have not only numbers[0m
-[32m      longer than expected[0m
-[32m      have numbers outside range 1..6[0m
 [32m      shorter than expected[0m
-  #total_match
+[32m      have numbers outside range 1..6[0m
+[32m      longer than expected[0m
+    should be truthy if guess
+[32m      have 4 numbers[0m
+  #reply_message
+[32m    should return "++--" if 2 exact and 2 number matches[0m
+[32m    should return "no matches" if no total matches[0m
+  #generate_code
+[32m    saves secret code with numbers from 1 to 6[0m
+[32m    saves 4 numbers secret code[0m
+[32m    should generate unique code that not equal to previous[0m
+[32m    generates secret code[0m
+  #test
+[32m    should return #{atr[0]} if #{atr[0]} number matches[0m
+  #number_match
+    with numbers that appear twice
+[32m      should return 3 if 1 exact and 3 number matches[0m
+[32m      should return 2 if 2 exact and 2 number matches[0m
+[32m      should return 4 if 4 number matches[0m
     with numbers that appear once
+[32m      should return 2 if 2 exact and 2 number matches[0m
+[32m      should return 3 if 1 exact and 3 number matches[0m
+[32m      should return 0 if 3 exact and 0 number matches[0m
+[32m      should return 4 if 4 number matches[0m
+  #total_match
+    with numbers that appear twice
+[32m      should return 2 if 2 matches[0m
+[32m      should return 1 if 1 matches[0m
+[32m      should return 3 if 3 matches[0m
+    with numbers that appear once
+[32m      should return 2 if 2 matches[0m
+[32m      should return 1 if 1 matches[0m
+[32m      should return 3 if 3 matches[0m
 [32m      should return 0 if 0 matches[0m
 [32m      should return 4 if 4 matches[0m
-[32m      should return 2 if 2 matches[0m
-[32m      should return 3 if 3 matches[0m
-[32m      should return 1 if 1 matches[0m
-    with numbers that appear twice
-[32m      should return 3 if 3 matches[0m
-[32m      should return 1 if 1 matches[0m
-[32m      should return 2 if 2 matches[0m
+  #start
+[32m    should set the maximum number of attempts equal to 8[0m
+[32m    should output "maximum attempts - 8"[0m
+[32m    should output "Welcome to CODEBREAKER! Please, enter your guess (length - 4"[0m
+    when valid guess submitted
+[32m      should output "++-" if 2 exact and 1 number matches[0m
+[32m      should output "+-" if 1 exact and 1 number matches[0m
+[32m      should output "++--" if 2 exact and 2 number matches[0m
+[32m      should output "no matches" if no matches[0m
+[32m      should output "++++" if secret code is broken[0m
+[32m      should output "----" if 4 number matches[0m
+[32m      should output first number of secret code if gets "hint"[0m
+    while receive invalid input
+[32m      should output message "Code must contain 4 digits from 1 to 6."[0m
 
-Finished in 0.05736 seconds (files took 0.17213 seconds to load)
-[32m46 examples, 0 failures[0m
+Finished in 0.05572 seconds (files took 0.17319 seconds to load)
+[32m43 examples, 0 failures[0m
 
-Randomized with seed 52265
+Randomized with seed 49400
 
