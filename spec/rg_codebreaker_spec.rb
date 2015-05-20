@@ -144,42 +144,19 @@ module RgCodebreaker
     end
     
     context '#play_again' do
-      it 'should' do
-        
+      it 'should start new game if receives "yes"' do
+        allow(inpt).to receive(:gets).and_return('yes')
+        expect(game).to receive(:start).once
+        game.play_again
       end
-    end
-      
-
-      
-      
-    
+      it 'should exit game when gets "no"' do
+        allow(inpt).to receive(:gets).and_return('no')
+        expect{game.play_again}.to raise_error SystemExit
+      end
+    end  
   end
 end
 
-
-=begin    
-    context '#play_again' do #???
-      it 'should output "Win!" if secret code is broken' do
-        allow(inpt).to receive(:gets).and_return('1234')
-        expect(out).to receive(:puts).with("Win!").once
-        start
-      end
-      it 'should output "Want to paly again?(y/n): " if secret code is broken' do
-        allow(inpt).to receive(:gets).and_return('1234')
-        expect(out).to receive(:puts).with("Want to paly again?(y/n): ").once
-        start
-      end
-      it 'should start new game when gets "y"' do
-        allow(inpt).to receive(:gets).and_return('1234', 'y')
-        expect(out).to receive(:puts).with(/Welcome to CODEBREAKER!\nPlease, enter your guess \(length - 4/).twice
-        start
-      end
-      it 'should output "Exit." when gets "n"' do
-        allow(inpt).to receive(:gets).and_return('1234', 'n')
-        expect{start}.to raise_error SystemExit
-      end
-    end
-=end
 
 =begin
       xit 'should output "Welcome to CODEBREAKER! Please, enter your guess (length - 4"' do

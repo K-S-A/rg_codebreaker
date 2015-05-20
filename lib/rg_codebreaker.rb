@@ -93,6 +93,15 @@ module RgCodebreaker
       File.read(STAT_FILE_PATH) || "No saved results!"
     end
     
+    def play_again
+      message = @inpt.gets.chomp
+      if message == "yes"
+        start
+      elsif message == "no"
+        exit
+      end
+    end
+    
 =begin    
     def play_again
       @out.puts "Win!"
