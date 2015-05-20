@@ -156,23 +156,3 @@ module RgCodebreaker
     end  
   end
 end
-
-
-=begin
-      xit 'should output "Welcome to CODEBREAKER! Please, enter your guess (length - 4"' do
-        expect(out).to receive(:puts).with(/Welcome to CODEBREAKER!\nPlease, enter your guess \(length - 4/).once
-        start
-      end
-      xit 'should output "maximum attempts - 8"' do
-        expect(out).to receive(:puts).with(/maximum attempts - 8/).once
-        start
-      end
-      context 'while receive invalid input' do
-        xit 'should output message "Code must contain 4 digits from 1 to 6."' do
-          allow(inpt).to receive(:gets).and_return('77777')
-          expect(out).to receive(:puts).with('Code must contain 4 digits from 1 to 6.').once
-          start
-        end
-      end
-=end
-

@@ -14,14 +14,6 @@ module RgCodebreaker
       @attempts = @secret_code.length * 2
     end
     
-    def reply_message(guess)
-      total_match(guess) == 0 ? "no matches" : "+" * exact_match(guess) + "-" * number_match(guess)
-    end
-    
-    def hint
-      @secret_code[0]
-    end
-    
     def compare(guess)
       if reply_message(guess) == "++++"
         "\"++++\"\nWIN!\nEnter your name: "
@@ -31,6 +23,14 @@ module RgCodebreaker
         use_attempt
         "\"#{reply_message(guess)}\"\nAttempts left: #@attempts. Enter your guess: "
       end
+    end
+    
+    def reply_message(guess)
+      total_match(guess) == 0 ? "no matches" : "+" * exact_match(guess) + "-" * number_match(guess)
+    end
+    
+    def hint
+      @secret_code[0]
     end
     
     def save
