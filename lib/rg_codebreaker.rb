@@ -8,25 +8,11 @@ module RgCodebreaker
   
     def initialize(out, inpt)
       @out, @inpt = out, inpt
-      
     end
     
     def start(code = generate_code)
       @secret_code = code
       @attempts = @secret_code.length * 2
-      #@out.puts "Welcome to CODEBREAKER!\nPlease, enter your guess (length - #{SECRET_CODE_LENGTH}, maximum attempts - #@attempts): "
-      #guess = @inpt.gets.chomp
-      #if valid?(guess)
-      #  @out.puts reply_message(guess)
-      #  if guess == @secret_code
-      #    play_again
-      #  end
-      #elsif guess == "hint"
-      #  @out.puts hint
-      #else
-      #  @out.puts "Code must contain 4 digits from 1 to 6."
-      #end
-      
     end
     
     def generate_code
@@ -100,18 +86,6 @@ module RgCodebreaker
       elsif message == "no"
         exit
       end
-    end
-    
-=begin    
-    def play_again
-      @out.puts "Win!"
-      @out.puts "Want to paly again?(y/n): "
-      if @inpt.gets.chomp == "n"
-        exit
-      elsif @inpt.gets.chomp == "y"
-        start
-      end
-    end
-=end  
+    end  
   end
 end

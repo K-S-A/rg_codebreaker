@@ -1,114 +1,103 @@
 
-Randomized with seed 46900
+Randomized with seed 57864
 
 RgCodebreaker::Game
-  #compare
-[32m    should return ""++--" Attempts left: 7. Enter your guess: " if code is not broken and some attempts left[0m
-[32m    should return ""++--" No attempts left. Fail!" if code is not broken and no attempts left[0m
-[32m    should return ""++++" WIN! Enter your name: " if code is broken within allowable number of attempts[0m
-  #statistics
-[32m    should return "No saved results!" if file is not available[0m
-[32m    should call #read with path to statistics file as argument[0m
-  #reply_message
-[32m    should return "+---" if 1 exact and 3 number matches[0m
-[32m    should return "--" if 0 exact and 2 number matches[0m
-[32m    should return "++-" if 2 exact and 1 number matches[0m
-[32m    should return "++++" if 4 exact and 0 number matches[0m
-[32m    should return "---" if 0 exact and 3 number matches[0m
-[32m    should return "+++" if 3 exact and 0 number matches[0m
-[32m    should return "++--" if 2 exact and 2 number matches[0m
-[32m    should return "----" if 0 exact and 4 number matches[0m
-[32m    should return "+" if 1 exact and 0 number matches[0m
-[32m    should return "++" if 2 exact and 0 number matches[0m
-[32m    should return "+--" if 1 exact and 2 number matches[0m
-[32m    should return "+-" if 1 exact and 1 number matches[0m
-[32m    should return "-" if 0 exact and 1 number matches[0m
-[32m    should return "no matches" if 0 exact and 0 number matches[0m
-  #number_match
-[32m    should return 3 if 1 exact and 3 number matches[0m
-[32m    should return 2 if 0 exact and 2 number matches[0m
-[32m    should return 1 if 2 exact and 1 number matches[0m
-[32m    should return 0 if 4 exact and 0 number matches[0m
-[32m    should return 3 if 0 exact and 3 number matches[0m
-[32m    should return 0 if 3 exact and 0 number matches[0m
-[32m    should return 2 if 2 exact and 2 number matches[0m
-[32m    should return 4 if 0 exact and 4 number matches[0m
-[32m    should return 0 if 1 exact and 0 number matches[0m
-[32m    should return 0 if 2 exact and 0 number matches[0m
-[32m    should return 2 if 1 exact and 2 number matches[0m
-[32m    should return 1 if 1 exact and 1 number matches[0m
-[32m    should return 1 if 0 exact and 1 number matches[0m
-[32m    should return 0 if 0 exact and 0 number matches[0m
-  #hint
-[32m    should return first number of secret code[0m
-  #play_again
-[33m    should exit game when gets "no" (PENDING: Temporarily skipped with xit)[0m
-[33m    should start new game if receives "yes" (PENDING: Temporarily skipped with xit)[0m
-  #generate_code
-[32m    saves 4 numbers secret code[0m
-[32m    should generate unique code that not equal to previous[0m
-[32m    saves secret code with numbers from 1 to 6[0m
-[32m    generates secret code[0m
-  #save
-[32m    should call #open with argument "a+"[0m
-[32m    should save player name from input[0m
+  #start
+[32m    should set secret code[0m
+[32m    should set the maximum number of attempts equal to 8[0m
   #exact_match
-[32m    should return 1 if 1 exact and 3 number matches[0m
+[32m    should return 0 if 0 exact and 0 number matches[0m
+[32m    should return 2 if 2 exact and 0 number matches[0m
+[32m    should return 0 if 0 exact and 1 number matches[0m
 [32m    should return 0 if 0 exact and 2 number matches[0m
-[32m    should return 2 if 2 exact and 1 number matches[0m
-[32m    should return 4 if 4 exact and 0 number matches[0m
 [32m    should return 0 if 0 exact and 3 number matches[0m
+[32m    should return 1 if 1 exact and 1 number matches[0m
+[32m    should return 1 if 1 exact and 2 number matches[0m
+[32m    should return 4 if 4 exact and 0 number matches[0m
+[32m    should return 1 if 1 exact and 3 number matches[0m
+[32m    should return 1 if 1 exact and 0 number matches[0m
 [32m    should return 3 if 3 exact and 0 number matches[0m
+[32m    should return 2 if 2 exact and 1 number matches[0m
 [32m    should return 2 if 2 exact and 2 number matches[0m
 [32m    should return 0 if 0 exact and 4 number matches[0m
-[32m    should return 1 if 1 exact and 0 number matches[0m
-[32m    should return 2 if 2 exact and 0 number matches[0m
-[32m    should return 1 if 1 exact and 2 number matches[0m
-[32m    should return 1 if 1 exact and 1 number matches[0m
-[32m    should return 0 if 0 exact and 1 number matches[0m
-[32m    should return 0 if 0 exact and 0 number matches[0m
-  #use_attempt
-[32m    should decrease number of attempts by 1[0m
-  #total_match
-[32m    should return 4 if 1 exact and 3 number matches[0m
-[32m    should return 2 if 0 exact and 2 number matches[0m
-[32m    should return 3 if 2 exact and 1 number matches[0m
-[32m    should return 4 if 4 exact and 0 number matches[0m
-[32m    should return 3 if 0 exact and 3 number matches[0m
-[32m    should return 3 if 3 exact and 0 number matches[0m
-[32m    should return 4 if 2 exact and 2 number matches[0m
-[32m    should return 4 if 0 exact and 4 number matches[0m
-[32m    should return 1 if 1 exact and 0 number matches[0m
-[32m    should return 2 if 2 exact and 0 number matches[0m
-[32m    should return 3 if 1 exact and 2 number matches[0m
-[32m    should return 2 if 1 exact and 1 number matches[0m
-[32m    should return 1 if 0 exact and 1 number matches[0m
-[32m    should return 0 if 0 exact and 0 number matches[0m
   #valid?
-    should be falsey if guess:
-[32m      shorter than expected[0m
-[32m      have numbers outside range 1..6[0m
-[32m      have not only numbers[0m
-[32m      longer than expected[0m
     should be truthy if guess
 [32m      have 4 numbers[0m
-  #start
-[32m    should set the maximum number of attempts equal to 8[0m
-[32m    should set secret code[0m
+    should be falsey if guess:
+[32m      longer than expected[0m
+[32m      have numbers outside range 1..6[0m
+[32m      have not only numbers[0m
+[32m      shorter than expected[0m
+  #number_match
+[32m    should return 0 if 0 exact and 0 number matches[0m
+[32m    should return 0 if 2 exact and 0 number matches[0m
+[32m    should return 1 if 0 exact and 1 number matches[0m
+[32m    should return 2 if 0 exact and 2 number matches[0m
+[32m    should return 3 if 0 exact and 3 number matches[0m
+[32m    should return 1 if 1 exact and 1 number matches[0m
+[32m    should return 2 if 1 exact and 2 number matches[0m
+[32m    should return 0 if 4 exact and 0 number matches[0m
+[32m    should return 3 if 1 exact and 3 number matches[0m
+[32m    should return 0 if 1 exact and 0 number matches[0m
+[32m    should return 0 if 3 exact and 0 number matches[0m
+[32m    should return 1 if 2 exact and 1 number matches[0m
+[32m    should return 2 if 2 exact and 2 number matches[0m
+[32m    should return 4 if 0 exact and 4 number matches[0m
+  #compare
+[32m    should return ""++++" WIN! Enter your name: " if code is broken within allowable number of attempts[0m
+[32m    should return ""++--" No attempts left. Fail!" if code is not broken and no attempts left[0m
+[32m    should return ""++--" Attempts left: 7. Enter your guess: " if code is not broken and some attempts left[0m
+  #total_match
+[32m    should return 0 if 0 exact and 0 number matches[0m
+[32m    should return 2 if 2 exact and 0 number matches[0m
+[32m    should return 1 if 0 exact and 1 number matches[0m
+[32m    should return 2 if 0 exact and 2 number matches[0m
+[32m    should return 3 if 0 exact and 3 number matches[0m
+[32m    should return 2 if 1 exact and 1 number matches[0m
+[32m    should return 3 if 1 exact and 2 number matches[0m
+[32m    should return 4 if 4 exact and 0 number matches[0m
+[32m    should return 4 if 1 exact and 3 number matches[0m
+[32m    should return 1 if 1 exact and 0 number matches[0m
+[32m    should return 3 if 3 exact and 0 number matches[0m
+[32m    should return 3 if 2 exact and 1 number matches[0m
+[32m    should return 4 if 2 exact and 2 number matches[0m
+[32m    should return 4 if 0 exact and 4 number matches[0m
+  #use_attempt
+[32m    should decrease number of attempts by 1[0m
+  #save
+[32m    should save player name from input[0m
+[32m    should call #open with argument "a+"[0m
+  #play_again
+[32m    should start new game if receives "yes"[0m
+[32m    should exit game when gets "no"[0m
+  #generate_code
+[32m    generates secret code[0m
+[32m    should generate unique code that not equal to previous[0m
+[32m    saves secret code with numbers from 1 to 6[0m
+[32m    saves 4 numbers secret code[0m
+  #reply_message
+[32m    should return "no matches" if 0 exact and 0 number matches[0m
+[32m    should return "++" if 2 exact and 0 number matches[0m
+[32m    should return "-" if 0 exact and 1 number matches[0m
+[32m    should return "--" if 0 exact and 2 number matches[0m
+[32m    should return "---" if 0 exact and 3 number matches[0m
+[32m    should return "+-" if 1 exact and 1 number matches[0m
+[32m    should return "+--" if 1 exact and 2 number matches[0m
+[32m    should return "++++" if 4 exact and 0 number matches[0m
+[32m    should return "+---" if 1 exact and 3 number matches[0m
+[32m    should return "+" if 1 exact and 0 number matches[0m
+[32m    should return "+++" if 3 exact and 0 number matches[0m
+[32m    should return "++-" if 2 exact and 1 number matches[0m
+[32m    should return "++--" if 2 exact and 2 number matches[0m
+[32m    should return "----" if 0 exact and 4 number matches[0m
+  #hint
+[32m    should return first number of secret code[0m
+  #statistics
+[32m    should call #read with path to statistics file as argument[0m
+[32m    should return "No saved results!" if file is not available[0m
 
-Pending: (Failures listed here are expected and do not affect your suite's status)
-[33m
-  1) RgCodebreaker::Game#play_again should exit game when gets "no"
-[0m[36m     # Temporarily skipped with xit
-[0m[36m     # ./spec/rg_codebreaker_spec.rb:152
-[0m[33m
-  2) RgCodebreaker::Game#play_again should start new game if receives "yes"
-[0m[36m     # Temporarily skipped with xit
-[0m[36m     # ./spec/rg_codebreaker_spec.rb:147
-[0m
+Finished in 0.07334 seconds (files took 0.18303 seconds to load)
+[32m78 examples, 0 failures[0m
 
-Finished in 0.07129 seconds (files took 0.18015 seconds to load)
-[33m78 examples, 0 failures, 2 pending[0m
-
-Randomized with seed 46900
+Randomized with seed 57864
 
