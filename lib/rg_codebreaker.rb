@@ -4,31 +4,37 @@ module RgCodebreaker
   class Game
     attr_reader :attempts
     SECRET_CODE_LENGTH = 4
+    STAT_FILE_PATH = "spec/data/statistic.txt"
   
     def initialize(out, inpt)
       @out, @inpt = out, inpt
-      @attempts = SECRET_CODE_LENGTH * 2
+      
     end
     
     def start(code = generate_code)
       @secret_code = code
-      @out.puts "Welcome to CODEBREAKER!\nPlease, enter your guess (length - #{SECRET_CODE_LENGTH}, maximum attempts - #@attempts): "
-      guess = @inpt.gets.chomp
-      if valid?(guess)
-        @out.puts reply_message(guess)
-        if guess == @secret_code
-          play_again
-        end
-      elsif guess == "hint"
-        @out.puts hint
-      else
-        @out.puts "Code must contain 4 digits from 1 to 6."
-      end
+      @attempts = @secret_code.length * 2
+      #@out.puts "Welcome to CODEBREAKER!\nPlease, enter your guess (length - #{SECRET_CODE_LENGTH}, maximum attempts - #@attempts): "
+      #guess = @inpt.gets.chomp
+      #if valid?(guess)
+      #  @out.puts reply_message(guess)
+      #  if guess == @secret_code
+      #    play_again
+      #  end
+      #elsif guess == "hint"
+      #  @out.puts hint
+      #else
+      #  @out.puts "Code must contain 4 digits from 1 to 6."
+      #end
       
     end
     
     def generate_code
       ((1..6).to_a * SECRET_CODE_LENGTH).shuffle[1..SECRET_CODE_LENGTH].join("")
+    end
+    
+    def valid?(guess)
+      guess.length == SECRET_CODE_LENGTH && guess.match(/[1-6]{4}/)
     end
     
     def exact_match(guess)
@@ -57,13 +63,36 @@ module RgCodebreaker
       total_match(guess) == 0 ? "no matches" : "+" * exact_match(guess) + "-" * number_match(guess)
     end
     
-    def valid?(guess)
-      guess.length == SECRET_CODE_LENGTH && guess.match(/[1-6]{4}/)
-    end
-    
     def hint
       @secret_code[0]
     end
+    
+    def use_attempt
+      @attempts -= 1
+    end
+    
+    def compare(guess)
+      if reply_message(guess) == "++++"
+        "\"++++\"\nWIN!\nEnter your name: "
+      elsif @attempts == 1
+        "\"#{reply_message(guess)}\"\nNo attempts left. Fail!"
+      else
+        use_attempt
+        "\"#{reply_message(guess)}\"\nAttempts left: #@attempts. Enter your guess: "
+      end
+    end
+    
+    def save
+      name = @inpt.gets.chomp
+      File.open(STAT_FILE_PATH, "a+") do |file|
+        file.puts("#{name} (secret code: #@secret_code)")
+      end
+    end
+    
+    def statistics
+      File.read(STAT_FILE_PATH) || "No saved results!"
+    end
+    
 =begin    
     def play_again
       @out.puts "Win!"

@@ -1,96 +1,24 @@
 require 'spec_helper'
 
 module RgCodebreaker
-  describe Game do
-  
+  describe Game do  
     let(:out) { double("out").as_null_object }
     let(:inpt) { double("inpt").as_null_object }
     let(:game) { Game.new(out, inpt) }
     let(:start) { game.start('1234') }
-    subject(:code) { game.generate_code }
-    #subject { game.instance_variable_get(:@secret_code) }
+    let(:code) { game.generate_code }
+    test_cases = [[0, 0, 0, "1122", "3344", "no matches"], [1, 1, 0, "1122", "1333", "+"], [1, 0, 1, "1122", "3331", "-"], [2, 2, 0, "1122", "3123", "++"], [2, 1, 1, "1122", "2133", "+-"], [2, 0, 2, "1122", "3213", "--"], [3, 3, 0, "1122", "1322", "+++"], [3, 2, 1, "1122", "2123", "++-"], [3, 1, 2, "1122", "2221", "+--"], [3, 0, 3, "1122", "2213", "---"], [4, 4, 0, "1122", "1122", "++++"], [4, 2, 2, "1122", "2121", "++--"], [4, 1, 3, "1123", "1312", "+---"], [4, 0, 4, "1122", "2211", "----"]] # [total, exact, number matches, secret code, guess, "+-"] 
     
     context '#start' do
-      it 'should output "Welcome to CODEBREAKER! Please, enter your guess (length - 4"' do
-        expect(out).to receive(:puts).with(/Welcome to CODEBREAKER!\nPlease, enter your guess \(length - 4/).once
-        start
-      end
+      before { start }
+      it 'should set secret code' do
+        expect(game.instance_variable_get(:@secret_code)).to eq('1234')
+      end     
       it 'should set the maximum number of attempts equal to 8' do
         expect(game.attempts).to eq(8)
-      end
-      it 'should output "maximum attempts - 8"' do
-        expect(out).to receive(:puts).with(/maximum attempts - 8/).once
-        start
-      end
-      context 'while receive invalid input' do
-        it 'should output message "Code must contain 4 digits from 1 to 6."' do
-          allow(inpt).to receive(:gets).and_return('77777')
-          expect(out).to receive(:puts).with('Code must contain 4 digits from 1 to 6.').once
-          start
-        end
-      end
-      context 'when valid guess submitted' do
-        it 'should output first number of secret code if gets "hint"' do
-          allow(inpt).to receive(:gets).and_return('hint')
-          expect(out).to receive(:puts).with('1').once
-          start
-        end
-        it 'should output "no matches" if no matches' do
-          allow(inpt).to receive(:gets).and_return('5555')
-          expect(out).to receive(:puts).with("no matches").once
-          start
-        end
-        it 'should output "+-" if 1 exact and 1 number matches' do
-          allow(inpt).to receive(:gets).and_return('1313')
-          expect(out).to receive(:puts).with("+-").once
-          start
-        end
-        it 'should output "++-" if 2 exact and 1 number matches' do
-          allow(inpt).to receive(:gets).and_return('1253')
-          expect(out).to receive(:puts).with("++-").once
-          start
-        end
-        it 'should output "----" if 4 number matches' do
-          allow(inpt).to receive(:gets).and_return('4321')
-          expect(out).to receive(:puts).with("----").once
-          start
-        end
-        it 'should output "++--" if 2 exact and 2 number matches' do
-          allow(inpt).to receive(:gets).and_return('1243')
-          expect(out).to receive(:puts).with("++--").once
-          start
-        end
-        it 'should output "++++" if secret code is broken' do
-          allow(inpt).to receive(:gets).and_return('1234')
-          expect(out).to receive(:puts).with("++++").once
-          start
-        end
-        
-      end
+      end 
     end
-=begin    
-    context '#play_again' do #???
-      it 'should output "Win!" if secret code is broken' do
-        allow(inpt).to receive(:gets).and_return('1234')
-        expect(out).to receive(:puts).with("Win!").once
-        start
-      end
-      it 'should output "Want to paly again?(y/n): " if secret code is broken' do
-        allow(inpt).to receive(:gets).and_return('1234')
-        expect(out).to receive(:puts).with("Want to paly again?(y/n): ").once
-        start
-      end
-      it 'should start new game when gets "y"' do
-        allow(inpt).to receive(:gets).and_return('1234', 'y')
-        expect(out).to receive(:puts).with(/Welcome to CODEBREAKER!\nPlease, enter your guess \(length - 4/).twice
-        start
-      end
-      it 'should output "Exit." when gets "n"' do
-        allow(inpt).to receive(:gets).and_return('1234', 'n')
-        expect{start}.to raise_error SystemExit
-      end
-    end
-=end    
+    
     context '#generate_code' do
       it 'generates secret code' do
         expect(code).not_to be_empty
@@ -99,7 +27,7 @@ module RgCodebreaker
         expect(code).to have(4).items
       end
       it 'saves secret code with numbers from 1 to 6' do
-        expect(code).to match(/[1-6]+/)
+        expect(code).to match(/[1-6]{4}/)
       end
       it 'should generate unique code that not equal to previous' do
         expect(code).not_to eq(game.generate_code)
@@ -129,105 +57,95 @@ module RgCodebreaker
     end
     
     context '#exact_match' do
-      before { game.start('1232') }  
-      it 'should return 4 if guess match secret code' do
-        expect(game.exact_match('1232')).to eq(4)
-      end
-      it 'should return 3 if 3 exact matches' do
-        expect(game.exact_match('1235')).to eq(3)
-      end
-      it 'should return 2 if 2 exact matches' do
-        expect(game.exact_match('1255')).to eq(2)
-      end
-      it 'should return 1 if 1 exact match' do
-        expect(game.exact_match('1555')).to eq(1)
-      end
-      it 'should return 0 if no exact matches' do
-        expect(game.exact_match('5555')).to eq(0)
+      test_cases.each do |test_case|
+        it "should return #{test_case[1]} if #{test_case[1]} exact and #{test_case[2]} number matches" do
+          game.start(test_case[3])
+          expect(game.exact_match(test_case[4])).to eq(test_case[1])
+        end
       end
     end
     
     context '#total_match' do
-      context 'with numbers that appear once' do
-        before { game.start('1234') } 
-        it 'should return 4 if 4 matches' do
-          expect(game.total_match('4321')).to eq(4)
-        end
-        it 'should return 3 if 3 matches' do
-          expect(game.total_match('4325')).to eq(3)
-        end
-        it 'should return 2 if 2 matches' do
-          expect(game.total_match('5325')).to eq(2)
-        end
-        it 'should return 1 if 1 matches' do
-          expect(game.total_match('5525')).to eq(1)
-        end
-        it 'should return 0 if 0 matches' do
-          expect(game.total_match('5555')).to eq(0)
-        end
-      end
-      context 'with numbers that appear twice' do
-        before { game.start('1334') } 
-        it 'should return 3 if 3 matches' do
-          expect(game.total_match('1243')).to eq(3)
-        end
-        it 'should return 2 if 2 matches' do
-          expect(game.total_match('2324')).to eq(2)
-        end
-        it 'should return 1 if 1 matches' do
-          expect(game.total_match('3222')).to eq(1)
+      test_cases.each do |test_case|
+        it "should return #{test_case[0]} if #{test_case[1]} exact and #{test_case[2]} number matches" do
+          game.start(test_case[3])
+          expect(game.total_match(test_case[4])).to eq(test_case[0])
         end
       end
     end
     
     context '#number_match' do
-      context 'with numbers that appear once' do
-        before { start } 
-        it 'should return 4 if 4 number matches' do
-          expect(game.number_match('4321')).to eq(4)
-        end
-        it 'should return 3 if 1 exact and 3 number matches' do
-          expect(game.number_match('1423')).to eq(3)
-        end
-        it 'should return 2 if 2 exact and 2 number matches' do
-          expect(game.number_match('1243')).to eq(2)
-        end
-        it 'should return 0 if 3 exact and 0 number matches' do
-          expect(game.number_match('1235')).to eq(0)
-        end
-      end
-      context 'with numbers that appear twice' do
-        before { game.start('1123') } 
-        it 'should return 4 if 4 number matches' do
-          expect(game.number_match('2311')).to eq(4)
-        end
-        it 'should return 3 if 1 exact and 3 number matches' do
-          expect(game.number_match('1231')).to eq(3)
-        end
-        it 'should return 2 if 2 exact and 2 number matches' do
-          expect(game.number_match('1213')).to eq(2)
+      test_cases.each do |test_case|
+        it "should return #{test_case[2]} if #{test_case[1]} exact and #{test_case[2]} number matches" do
+          game.start(test_case[3])
+          expect(game.number_match(test_case[4])).to eq(test_case[2])
         end
       end
     end
     
     context '#reply_message' do
-      before { game.start('2244') } 
-      it 'should return "no matches" if no total matches' do
-        expect(game.reply_message('5555')).to eq('no matches')
-      end
-      it 'should return "++--" if 2 exact and 2 number matches' do
-        expect(game.reply_message('4242')).to eq('++--')
-      end
-    end  
-      atrs = [[0, 0, 0, "1122", "3344", ""], [1, 1, 0, "1122", "1333", "+"], [1, 0, 1, "1122", "3331", "-"], [2, 2, 0, "1122", "3123", "++"], [2, 1, 1, "1122", "2133", "+-"], [2, 0, 2, "1122", "3213", "--"], [3, 3, 0, "1122", "1322", "+++"], [3, 2, 1, "1122", "2123", "++-"], [3, 1, 2, "1122", "2221", "+--"], [3, 0, 3, "1122", "2213", "---"], [4, 4, 0, "1122", "1122", "++++"], [4, 2, 2, "1122", "2121", "++--"], [4, 1, 3, "1123", "1312", "+---"], [4, 0, 4, "1122", "2211", "----"]] # [total, exact, number matches, secret code, guess, "+-"]   
-    context '#test' do
-    
-      
-      atrs.each do |atr|
-        it "should return #{atr[0]} if #{atr[1]} exact and #{atr[2]} number matches" do
-          game.start(atr[3])
-          expect(game.total_match(atr[4])).to eq(atr[0])
+      test_cases.each do |test_case|
+        it "should return \"#{test_case[5]}\" if #{test_case[1]} exact and #{test_case[2]} number matches" do
+          game.start(test_case[3])
+          expect(game.reply_message(test_case[4])).to eq(test_case[5])
         end
+      end
+    end
+    
+    context '#hint' do
+      it 'should return first number of secret code' do
+        start
+        expect(game.hint).to eq("1")
+      end
+    end
+    
+    context '#use_attempt' do
+      it 'should decrease number of attempts by 1' do
+        start
+        expect{ 3.times{ game.use_attempt } }.to change { game.attempts }.by(-3)
+      end
+    end
+    
+    context '#compare' do
+      before { start }
+      it "should return \"\"++++\" WIN! Enter your name: \" if code is broken within allowable number of attempts" do
+        expect(game.compare("1234")).to eq("\"++++\"\nWIN!\nEnter your name: ")
+      end
+      it "should return \"\"++--\" Attempts left: 7. Enter your guess: \" if code is not broken and some attempts left" do
+        expect(game.compare("1243")).to eq("\"++--\"\nAttempts left: 7. Enter your guess: ")
+      end
+      it "should return \"\"++--\" No attempts left. Fail!\" if code is not broken and no attempts left" do
+        game.instance_variable_set(:@attempts, 1)
+        expect(game.compare("1243")).to eq("\"++--\"\nNo attempts left. Fail!")
+      end
+    end
+    
+    context '#save' do
+      it 'should save player name from input' do
+        expect(inpt).to receive(:gets).once
+        game.save
+      end
+      it 'should call #open with argument "a+"' do
+        allow(File).to receive(:open).with("spec/data/statistic.txt", "a+").and_return(nil)
+        expect(File).to receive(:open).with("spec/data/statistic.txt", "a+").once
+        game.save
+      end
+    end
+    
+    context '#statistics' do
+      it 'should call #read with path to statistics file as argument' do
+        expect(File).to receive(:read).with("spec/data/statistic.txt").once
+        game.statistics
+      end
+      it 'should return "No saved results!" if file is not available' do
+        allow(File).to receive(:read).with("spec/data/statistic.txt").and_return(nil)
+        expect(game.statistics).to eq("No saved results!")
+      end
+    end
+    
+    context '#play_again' do
+      it 'should' do
+        
       end
     end
       
@@ -237,3 +155,47 @@ module RgCodebreaker
     
   end
 end
+
+
+=begin    
+    context '#play_again' do #???
+      it 'should output "Win!" if secret code is broken' do
+        allow(inpt).to receive(:gets).and_return('1234')
+        expect(out).to receive(:puts).with("Win!").once
+        start
+      end
+      it 'should output "Want to paly again?(y/n): " if secret code is broken' do
+        allow(inpt).to receive(:gets).and_return('1234')
+        expect(out).to receive(:puts).with("Want to paly again?(y/n): ").once
+        start
+      end
+      it 'should start new game when gets "y"' do
+        allow(inpt).to receive(:gets).and_return('1234', 'y')
+        expect(out).to receive(:puts).with(/Welcome to CODEBREAKER!\nPlease, enter your guess \(length - 4/).twice
+        start
+      end
+      it 'should output "Exit." when gets "n"' do
+        allow(inpt).to receive(:gets).and_return('1234', 'n')
+        expect{start}.to raise_error SystemExit
+      end
+    end
+=end
+
+=begin
+      xit 'should output "Welcome to CODEBREAKER! Please, enter your guess (length - 4"' do
+        expect(out).to receive(:puts).with(/Welcome to CODEBREAKER!\nPlease, enter your guess \(length - 4/).once
+        start
+      end
+      xit 'should output "maximum attempts - 8"' do
+        expect(out).to receive(:puts).with(/maximum attempts - 8/).once
+        start
+      end
+      context 'while receive invalid input' do
+        xit 'should output message "Code must contain 4 digits from 1 to 6."' do
+          allow(inpt).to receive(:gets).and_return('77777')
+          expect(out).to receive(:puts).with('Code must contain 4 digits from 1 to 6.').once
+          start
+        end
+      end
+=end
+
