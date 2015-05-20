@@ -45,11 +45,9 @@ module RgCodebreaker
     end
     
     def play_again
-      message = @inpt.gets.chomp
-      if message == "yes"
-        start
-      elsif message == "no"
-        exit
+      case @inpt.gets.chomp
+        when "yes" then start
+        when "no"  then exit
       end
     end
     
