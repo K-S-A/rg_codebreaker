@@ -126,7 +126,6 @@ module RgCodebreaker
         game.save
       end
       it 'should call #open with argument "a+"' do
-        allow(File).to receive(:open).with("spec/data/statistic.txt", "a+").and_return(nil)
         expect(File).to receive(:open).with("spec/data/statistic.txt", "a+").once
         game.save
       end
