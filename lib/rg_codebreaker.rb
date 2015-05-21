@@ -59,15 +59,9 @@ module RgCodebreaker
     end
     
     def total_match(guess)
-      guess = "" + guess
       total_num = 0
-      @secret_code.each_char do |i|
-        if  guess.include?(i)
-          total_num += 1
-          guess[guess.index(i)] = ""
-        end
-      end
-      total_num
+      guess.chars.uniq.each { |i| total_num += [guess.count(i), @secret_code.count(i)].min }      
+      total_num  
     end
     
     def number_match(guess)
