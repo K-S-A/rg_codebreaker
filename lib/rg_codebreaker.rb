@@ -4,17 +4,13 @@ module RgCodebreaker
   class Game
     SECRET_CODE_LENGTH = 4
     STAT_FILE_PATH = "spec/data/statistic.txt"
-  
-    def initialize(out, inpt)
-      @out, @inpt = out, inpt
-    end
     
     def start(code = generate_code)
       @secret_code = code
       @attempts = @secret_code.length * 2
     end
     
-    def compare(guess)
+    def compare(guess)      
       if reply_message(guess) == "++++"
         "\"++++\"\nWIN!\nEnter your name: "
       elsif @attempts == 1
@@ -22,19 +18,14 @@ module RgCodebreaker
       else
         use_attempt
         "\"#{reply_message(guess)}\"\nAttempts left: #@attempts. Enter your guess: "
-      end
-    end
-    
-    def reply_message(guess)
-      total_match(guess) == 0 ? "no matches" : "+" * exact_match(guess) + "-" * number_match(guess)
+      end      
     end
     
     def hint
       @secret_code[0]
     end
     
-    def save
-      name = @inpt.gets.chomp
+    def save(name)
       File.open(STAT_FILE_PATH, "a+") do |file|
         file.puts("#{name} (secret code: #@secret_code)")
       end
@@ -44,8 +35,8 @@ module RgCodebreaker
       File.read(STAT_FILE_PATH) || "No saved results!"
     end
     
-    def play_again
-      case @inpt.gets.chomp
+    def play_again(request)
+      case request
         when "yes" then start
         when "no"  then exit
       end
@@ -81,6 +72,10 @@ module RgCodebreaker
     
     def number_match(guess)
       total_match(guess) - exact_match(guess)
+    end
+    
+    def reply_message(guess)
+      total_match(guess) == 0 ? "no matches" : "+" * exact_match(guess) + "-" * number_match(guess)
     end 
     
     def use_attempt

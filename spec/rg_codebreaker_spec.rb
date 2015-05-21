@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 module RgCodebreaker
-  describe Game do  
-    let(:out) { double("out").as_null_object }
-    let(:inpt) { double("inpt").as_null_object }
-    let(:game) { Game.new(out, inpt) }
+  describe Game do
+    let(:game) { Game.new }
     let(:start) { game.start('1234') }
     let(:code) { game.send(:generate_code) }
     test_cases = [[0, 0, 0, "1122", "3344", "no matches"], [1, 1, 0, "1122", "1333", "+"], [1, 0, 1, "1122", "3331", "-"], [2, 2, 0, "1122", "3123", "++"], [2, 1, 1, "1122", "2133", "+-"], [2, 0, 2, "1122", "3213", "--"], [3, 3, 0, "1122", "1322", "+++"], [3, 2, 1, "1122", "2123", "++-"], [3, 1, 2, "1122", "2221", "+--"], [3, 0, 3, "1122", "2213", "---"], [4, 4, 0, "1122", "1122", "++++"], [4, 2, 2, "1122", "2121", "++--"], [4, 1, 3, "1123", "1312", "+---"], [4, 0, 4, "1122", "2211", "----"]] # [total, exact, number matches, secret code, guess, "+-"] 
@@ -121,13 +119,9 @@ module RgCodebreaker
     end
     
     context '#save' do
-      it 'should save player name from input' do
-        expect(inpt).to receive(:gets).once
-        game.save
-      end
       it 'should call #open with argument "a+"' do
         expect(File).to receive(:open).with("spec/data/statistic.txt", "a+").once
-        game.save
+        game.save('Player')
       end
     end
     
@@ -144,13 +138,11 @@ module RgCodebreaker
     
     context '#play_again' do
       it 'should start new game if receives "yes"' do
-        allow(inpt).to receive(:gets).and_return('yes')
         expect(game).to receive(:start).once
-        game.play_again
+        game.play_again('yes')
       end
       it 'should exit game when gets "no"' do
-        allow(inpt).to receive(:gets).and_return('no')
-        expect{game.play_again}.to raise_error SystemExit
+        expect{game.play_again('no')}.to raise_error SystemExit
       end
     end  
   end
