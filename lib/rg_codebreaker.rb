@@ -45,7 +45,7 @@ module RgCodebreaker
     private
 
     def generate_code
-      ((1..6).to_a * SECRET_CODE_LENGTH).sample(SECRET_CODE_LENGTH).join("")
+      (1..SECRET_CODE_LENGTH).map { (1..6).to_a.sample(1) }.join
     end
     
     def valid?(guess)
