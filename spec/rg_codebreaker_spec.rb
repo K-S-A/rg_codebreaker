@@ -19,6 +19,9 @@ module RgCodebreaker
       end     
       it 'should set the maximum number of attempts equal to 8' do
         expect(game.instance_variable_get(:@attempts)).to eq(8)
+      end
+      it "should return \"Maximum attempts - 8. Enter your guess:\"" do
+        expect(game.start).to eq("Maximum attempts - #{game.attempts}. Enter your guess:")
       end 
     end
     
@@ -102,15 +105,28 @@ module RgCodebreaker
       end
     end
     
+    context '#attempts' do
+      it 'should return number of maximum attempts' do
+        start
+        expect(game.attempts).to eq(8)
+      end
+    end
+    
     context '#use_attempt' do
       it 'should decrease number of attempts by 1' do
         start
-        expect{ 3.times{ game.send(:use_attempt) } }.to change { game.instance_variable_get(:@attempts) }.by(-3)
+        expect{ 3.times{ game.send(:use_attempt) } }.to change { game.attempts }.by(-3)
       end
     end
     
     context '#compare' do
       before { start }
+      it 'should return "Invalid guess, try again:" if guess have wrong format' do
+        expect(game.compare('94j2')).to eq("Invalid guess, try again:")
+      end
+      it 'should call hint if received "hint"' do
+        expect(game.compare('hint')).to eq('1***. Enter your guess:')
+      end
       it "should return \"\"++++\" WIN! Enter your name: \" if code is broken within allowable number of attempts" do
         expect(game.compare("1234")).to eq("\"++++\"\nWIN!\nEnter your name: ")
       end
@@ -119,25 +135,25 @@ module RgCodebreaker
       end
       it "should return \"\"++--\" No attempts left. Fail!\" if code is not broken and no attempts left" do
         game.instance_variable_set(:@attempts, 1)
-        expect(game.compare("1243")).to eq("\"++--\"\nNo attempts left. Fail!")
+        expect(game.compare("1243")).to match(/\"\+\+\-\-\"\nNo attempts left. Fail!\nSecret code was:/)
       end
     end
     
     context '#save' do
       it 'should call #open with argument "a+"' do
-        expect(File).to receive(:open).with("spec/data/statistic.txt", "a+").once
+        expect(File).to receive(:open).with("statistic.txt", "a+").once
         game.save('Player')
       end
     end
     
     context '#statistics' do
       it 'should call #read with path to statistics file as argument' do
-        expect(File).to receive(:read).with("spec/data/statistic.txt").once
+        expect(File).to receive(:read).with("statistic.txt").once
         game.statistics
       end
       it 'should return "No saved results!" if file is not available' do
-        allow(File).to receive(:read).with("spec/data/statistic.txt").and_return(nil)
-        expect(game.statistics).to eq("No saved results!")
+        allow(File).to receive(:read).with("statistic.txt").and_return(nil)
+        expect(game.statistics).to eq("###Statistics:###\nNo saved results!")
       end
     end
     
@@ -147,7 +163,7 @@ module RgCodebreaker
         game.play_again('yes')
       end
       it 'should exit game when gets "no"' do
-        expect{game.play_again('no')}.to raise_error SystemExit
+        expect{ game.play_again('no') }.to raise_error SystemExit
       end
     end  
   end

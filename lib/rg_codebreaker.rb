@@ -1,24 +1,27 @@
-require "rg_codebreaker/version"
+require_relative "rg_codebreaker/version"
 
 module RgCodebreaker
   class Game
+    attr_reader :attempts
     SECRET_CODE_LENGTH = 4
-    STAT_FILE_PATH = "spec/data/statistic.txt"
+    STAT_FILE_PATH = "statistic.txt"
     
     def start(code = generate_code)
       @secret_code = code
       @attempts = @secret_code.length * 2
+      "Maximum attempts - #@attempts. Enter your guess:"
     end
     
-    def compare(guess)      
-      if reply_message(guess) == "++++"
-        "\"++++\"\nWIN!\nEnter your name: "
-      elsif @attempts == 1
-        "\"#{reply_message(guess)}\"\nNo attempts left. Fail!"
+    def compare(guess)
+      case
+      when guess == 'hint'                then "#{hint}***. Enter your guess:"
+      when !valid?(guess)                 then 'Invalid guess, try again:'
+      when reply_message(guess) == "++++" then "\"++++\"\nWIN!\nEnter your name: "
+      when @attempts == 1                 then "\"#{reply_message(guess)}\"\nNo attempts left. Fail!\nSecret code was: #@secret_code."
       else
         use_attempt
         "\"#{reply_message(guess)}\"\nAttempts left: #@attempts. Enter your guess: "
-      end      
+      end     
     end
     
     def hint
@@ -27,12 +30,12 @@ module RgCodebreaker
     
     def save(name)
       File.open(STAT_FILE_PATH, "a+") do |file|
-        file.puts("#{name} (secret code: #@secret_code)")
+        file.puts("#{name} (secret code: #@secret_code; attempts left: #{@attempts - 1})")
       end
     end
     
     def statistics
-      File.read(STAT_FILE_PATH) || "No saved results!"
+      "###Statistics:###\n#{File.read(STAT_FILE_PATH) || "No saved results!"}"
     end
     
     def play_again(request)
