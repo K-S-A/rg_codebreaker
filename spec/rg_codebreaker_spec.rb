@@ -104,10 +104,10 @@ module RgCodebreaker
     context '#hint' do
       before { start }
       it 'should return first number of secret code' do
-        expect(game.instance_variable_get(:@secret_code)).to include(game.hint)
+        expect(game.instance_variable_get(:@secret_code)).to include(game.send(:hint))
       end
       it 'should be used only one time' do
-        expect(game.hint).to eq(game.hint)
+        expect(game.send(:hint)).to eq(game.send(:hint))
       end
     end
     

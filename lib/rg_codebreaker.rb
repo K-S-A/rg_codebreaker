@@ -25,11 +25,6 @@ module RgCodebreaker
       end     
     end
     
-    def hint
-      @hint = @secret_code[rand(4)] if @hint == false
-      @hint
-    end
-    
     def save(name)
       File.open(STAT_FILE_PATH, "a+") do |file|
         file.puts("#{name} (secret code: #@secret_code; attempts left: #{@attempts - 1}; hint: #{@hint == false ? "not" : ""} used).")
@@ -79,6 +74,11 @@ module RgCodebreaker
     
     def use_attempt
       @attempts -= 1
+    end
+    
+    def hint
+      @hint = @secret_code[rand(4)] if @hint == false
+      @hint
     end
   end
 end
