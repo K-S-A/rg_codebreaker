@@ -22,6 +22,9 @@ module RgCodebreaker
       end
       it "should return \"Maximum attempts - 8. Enter your guess:\"" do
         expect(game.start).to eq("Maximum attempts - #{game.attempts}. Enter your guess:")
+      end
+      it 'should set instance variable @hint to true' do
+        expect(game.instance_variable_get(:@hint)).to be_falsey
       end 
     end
     
@@ -99,9 +102,12 @@ module RgCodebreaker
     end
     
     context '#hint' do
+      before { start }
       it 'should return first number of secret code' do
-        start
-        expect(game.hint).to eq("1")
+        expect(game.instance_variable_get(:@secret_code)).to include(game.hint)
+      end
+      it 'should be used only one time' do
+        expect(game.hint).to eq(game.hint)
       end
     end
     
@@ -125,7 +131,8 @@ module RgCodebreaker
         expect(game.compare('94j2')).to eq("Invalid guess, try again:")
       end
       it 'should call hint if received "hint"' do
-        expect(game.compare('hint')).to eq('1***. Enter your guess:')
+        allow(game).to receive(:hint).and_return("1").once
+        expect(game.compare('hint')).to eq('>>>1<<<. Enter your guess:')
       end
       it "should return \"\"++++\" WIN! Enter your name: \" if code is broken within allowable number of attempts" do
         expect(game.compare("1234")).to eq("\"++++\"\nWIN!\nEnter your name: ")

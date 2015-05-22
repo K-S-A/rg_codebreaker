@@ -9,12 +9,13 @@ module RgCodebreaker
     def start(code = generate_code)
       @secret_code = code
       @attempts = @secret_code.length * 2
+      @hint = false
       "Maximum attempts - #@attempts. Enter your guess:"
     end
     
     def compare(guess)
       case
-      when guess == 'hint'                then "#{hint}***. Enter your guess:"
+      when guess == 'hint'                then ">>>#{hint}<<<. Enter your guess:"
       when !valid?(guess)                 then 'Invalid guess, try again:'
       when reply_message(guess) == "++++" then "\"++++\"\nWIN!\nEnter your name: "
       when @attempts == 1                 then "\"#{reply_message(guess)}\"\nNo attempts left. Fail!\nSecret code was: #@secret_code."
@@ -25,12 +26,13 @@ module RgCodebreaker
     end
     
     def hint
-      @secret_code[0]
+      @hint = @secret_code[rand(4)] if @hint == false
+      @hint
     end
     
     def save(name)
       File.open(STAT_FILE_PATH, "a+") do |file|
-        file.puts("#{name} (secret code: #@secret_code; attempts left: #{@attempts - 1})")
+        file.puts("#{name} (secret code: #@secret_code; attempts left: #{@attempts - 1}; hint: #{@hint == false ? "not" : ""} used).")
       end
     end
     
@@ -57,7 +59,7 @@ module RgCodebreaker
     
     def exact_match(guess)
       exact_num = 0
-      (0..3).each { |i| exact_num += 1 if @secret_code[i] == guess[i] }
+      (0..@secret_code.length - 1).each { |i| exact_num += 1 if @secret_code[i] == guess[i] }
       exact_num
     end
     
