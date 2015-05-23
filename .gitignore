@@ -9,4 +9,5 @@
 /tmp/
 *~
 /spec/data/
-lib/rg_codebreaker/statistic.txt
+bin/rg_codebreaker/statistic.txt
+
