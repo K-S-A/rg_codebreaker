@@ -54,7 +54,7 @@ module RgCodebreaker
     
     def exact_match(guess)
       exact_num = 0
-      (0..@secret_code.length - 1).each { |i| exact_num += 1 if @secret_code[i] == guess[i] }
+      @secret_code.chars.each.with_index { |x, i| exact_num += 1 if @secret_code[i] == guess[i] }
       exact_num
     end
     
