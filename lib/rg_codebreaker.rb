@@ -15,7 +15,7 @@ module RgCodebreaker
 
     def compare(guess)
       case
-      when guess == 'hint'                then '#{hint}'
+      when guess == 'hint'                then "#{hint}"
       when !valid?(guess)                 then 'invalid'
       #when reply_message(guess) == "++++" then "\"++++\"\nWIN!\nEnter your name: "
 #      when @attempts == 1                 then "\"#{reply_message(guess)}\"\nNo attempts left. Fail!\nSecret code was: #{@secret_code}."
