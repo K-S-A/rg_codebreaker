@@ -18,7 +18,7 @@ module RgCodebreaker
       when guess == 'hint'                then ">>>#{hint}<<<. Enter your guess:"
       when !valid?(guess)                 then 'Invalid guess, try again:'
       when reply_message(guess) == "++++" then "\"++++\"\nWIN!\nEnter your name: "
-      when @attempts == 1                 then "\"#{reply_message(guess)}\"\nNo attempts left. Fail!\nSecret code was: #{code}."
+      when @attempts == 1                 then "\"#{reply_message(guess)}\"\nNo attempts left. Fail!\nSecret code was: #{@secret_code}."
       else
         use_attempt
         "#{guess}\t\"#{reply_message(guess)}\""
@@ -43,7 +43,6 @@ module RgCodebreaker
     end
 
     private
-    #attr_reader :secret_code
     def generate_code
       (1..SECRET_CODE_LENGTH).map { (1..6).to_a.sample(1) }.join
     end
