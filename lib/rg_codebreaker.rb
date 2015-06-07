@@ -1,54 +1,42 @@
 require_relative "rg_codebreaker/version"
+require 'yaml/dbm'
 
 module RgCodebreaker
   class Game
     attr_reader :attempts
-    SECRET_CODE_LENGTH = 4
-    STAT_FILE_PATH = "statistic.txt"
 
-    def start(code = generate_code)
-      @secret_code = code
-      @attempts = @secret_code.length * 2
-      @hint = false
-      "Maximum attempts - #@attempts. Enter your guess:"
+    def start(code = nil, code_length = 4)
+      @code_length, @attempts, @hint =code_length, code_length * 2, nil
+      @secret_code = code || generate_code
+      @db = YAML::DBM.open('statistic', 666, YAML::DBM::WRCREAT)
+      self
     end
 
     def compare(guess)
       case
-      when guess == 'hint'                then "#{hint}"
-      when !valid?(guess)                 then 'invalid'
-      #when reply_message(guess) == "++++" then "\"++++\"\nWIN!\nEnter your name: "
-#      when @attempts == 1                 then "\"#{reply_message(guess)}\"\nNo attempts left. Fail!\nSecret code was: #{@secret_code}."
-      else
-        use_attempt
-        "#{guess}\t\"#{reply_message(guess)}\""
+      when guess == 'hint' then hint
+      when !valid?(guess)  then 'invalid'
+      else                 use_attempt; [guess, reply_message(guess)]
       end
     end
 
     def save(name)
-      File.open(STAT_FILE_PATH, "a+") do |file|
-        file.puts("#{name} (secret code: #@secret_code; attempts left: #{@attempts - 1}; hint: #{@hint == false ? "not" : ""} used).")
-      end
+        stats = @db['stats'] || {}
+        stats[name] = (stats[name] || []) << self
+        @db['stats'] = stats
     end
 
     def statistics
-      "###Statistics:###\n#{File.read(STAT_FILE_PATH) || "No saved results!"}"
-    end
-
-    def play_again(request)
-      case request
-        when "yes" then start
-        when "no"  then exit
-      end
+      @db['stats']
     end
 
     private
     def generate_code
-      (1..SECRET_CODE_LENGTH).map { (1..6).to_a.sample(1) }.join
+      (1..@code_length).map { (1..6).to_a.sample(1) }.join
     end
 
     def valid?(guess)
-      guess.length == SECRET_CODE_LENGTH && guess.match(/[1-6]{4}/)
+      guess.length == @code_length && guess.match(/[1-6]{4}/)
     end
 
     def exact_match(guess)
@@ -75,9 +63,8 @@ module RgCodebreaker
       @attempts -= 1
     end
 
-    def hint(code = @secret_code)
-      @hint = @secret_code[rand(4)] if @hint == false
-      @hint
+    def hint
+      @hint = @secret_code[rand(4)] unless @hint
     end
   end
 end
