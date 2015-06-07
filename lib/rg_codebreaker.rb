@@ -16,7 +16,7 @@ module RgCodebreaker
       case
       when guess == 'hint' then hint
       when !valid?(guess)  then 'invalid'
-      else                 use_attempt; [guess, reply_message(guess)]
+      else                      use_attempt; [guess, reply_message(guess)]
       end
     end
 
