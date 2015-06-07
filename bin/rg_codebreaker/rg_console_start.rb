@@ -19,7 +19,8 @@ class ConsoleCodebreaker
     puts 'Enter your name:'
     name = gets.chomp
     game.save(name) unless name.empty?
-    game.statistics.each { |name, g| puts "Player: >#{name}< played #{g.length} games." }
+    puts game.statistics.each { |name, g| puts "Player: >#{name}< played #{g.length} games." } if game.statistics
+    puts 'No games played yet.' unless game.statistics
     puts 'Want to play again?(y/n):'
     while play_status = gets.chomp
       case play_status

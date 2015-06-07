@@ -1,5 +1,6 @@
 require_relative "rg_codebreaker/version"
-require 'yaml/dbm'
+require 'yaml'
+require 'dbm'
 
 module RgCodebreaker
   class Game
@@ -8,7 +9,7 @@ module RgCodebreaker
     def start(code = nil, code_length = 4)
       @code_length, @attempts, @hint =code_length, code_length * 2, nil
       @secret_code = code || generate_code
-      @db = YAML::DBM.open('statistic', 666, YAML::DBM::WRCREAT)
+      @db = DBM.open('statistic', 0776, DBM::WRCREAT)
       self
     end
 
@@ -21,13 +22,13 @@ module RgCodebreaker
     end
 
     def save(name)
-        stats = @db['stats'] || {}
+        stats = statistics || {}
         stats[name] = (stats[name] || []) << self
-        @db['stats'] = stats
+        @db['stats'] = YAML.dump(stats)
     end
 
     def statistics
-      @db['stats']
+      YAML.load(@db['stats']) if @db['stats']
     end
 
     private

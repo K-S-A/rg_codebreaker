@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module RgCodebreaker
   describe Game do
-    before { allow(YAML::DBM).to receive(:open).and_return({}) }
+    before { allow(DBM).to receive(:open).and_return({}) }
     let(:game) { Game.new.start('1234') }
     let(:code) { game.send(:generate_code) }
     test_cases = [[0, 0, 0, "1122", "3344", "no matches"], [1, 1, 0, "1122", "1333", "+"], [1, 0, 1, "1122", "3331", "-"],\
@@ -139,8 +139,8 @@ module RgCodebreaker
     end
 
     context '#save' do
-      it 'should call #open with arguments ""statistic", 666, YAML::DBM::WRCREAT"' do
-        expect(YAML::DBM).to receive(:open).with('statistic', 666, YAML::DBM::WRCREAT).once
+      it 'should call #open with arguments ""statistic", 510, DBM::WRCREAT"' do
+        expect(DBM).to receive(:open).with('statistic', 510, DBM::WRCREAT).once
         game.save('Player')
       end
     end
