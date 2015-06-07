@@ -1,15 +1,14 @@
 require_relative "rg_codebreaker/version"
 require 'yaml'
-require 'dbm'
 
 module RgCodebreaker
   class Game
     attr_reader :attempts
+    STAT_FILE = 'statistics.rb'
 
     def start(code = nil, code_length = 4)
       @code_length, @attempts, @hint =code_length, code_length * 2, nil
       @secret_code = code || generate_code
-      @db = DBM.open('statistic', 0776, DBM::WRCREAT)
       self
     end
 
@@ -24,11 +23,11 @@ module RgCodebreaker
     def save(name)
         stats = statistics || {}
         stats[name] = (stats[name] || []) << self
-        @db['stats'] = YAML.dump(stats)
+        File.open(STAT_FILE, 'w', 0776) { |file| file.write stats.to_yaml }
     end
 
     def statistics
-      YAML.load(@db['stats']) if @db['stats']
+      YAML.load_file(STAT_FILE) if File.exist?(STAT_FILE)
     end
 
     private
