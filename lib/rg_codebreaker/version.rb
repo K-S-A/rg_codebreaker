@@ -1,3 +1,3 @@
 module RgCodebreaker
-  VERSION = "0.4.5"
+  VERSION = "0.5.2"
 end

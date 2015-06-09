@@ -3,11 +3,11 @@ require 'yaml'
 
 module RgCodebreaker
   class Game
-    attr_reader :attempts, :guess_log
+    attr_reader :attempts, :guess_log, :invalid
     STAT_FILE = 'statistics.rb'
 
     def start(code = nil, code_length = 4)
-      @code_length, @attempts, @hint =code_length, code_length * 2, nil
+      @code_length, @attempts, @hint, @start_time, @invalid =code_length, code_length * 2, nil, Time.now, nil
       @secret_code = code || generate_code
       @guess_log = []
       self
@@ -16,8 +16,8 @@ module RgCodebreaker
     def compare(guess)
       case
       when guess == 'hint' then hint
-      when !valid?(guess)  then 'invalid'
-      else                      use_attempt; (@guess_log << [guess, reply_message(guess)]).last
+      when !valid?(guess)  then @invalid = true
+      else                      use_attempt; @invalid = nil; @end_time = Time.now; (@guess_log << [guess, reply_message(guess)]).last
       end
     end
 
@@ -31,7 +31,12 @@ module RgCodebreaker
       YAML.load_file(STAT_FILE) if File.exist?(STAT_FILE)
     end
 
+    def duration
+      (@end_time - @start_time).to_i
+    end
+
     private
+
     def generate_code
       (1..@code_length).map { (1..6).to_a.sample(1) }.join
     end
@@ -67,5 +72,6 @@ module RgCodebreaker
     def hint
       @hint = @secret_code[rand(4)] unless @hint
     end
+
   end
 end
