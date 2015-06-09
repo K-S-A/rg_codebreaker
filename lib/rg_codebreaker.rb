@@ -3,12 +3,13 @@ require 'yaml'
 
 module RgCodebreaker
   class Game
-    attr_reader :attempts
+    attr_reader :attempts, :guess_log
     STAT_FILE = 'statistics.rb'
 
     def start(code = nil, code_length = 4)
       @code_length, @attempts, @hint =code_length, code_length * 2, nil
       @secret_code = code || generate_code
+      @guess_log = []
       self
     end
 
@@ -16,7 +17,7 @@ module RgCodebreaker
       case
       when guess == 'hint' then hint
       when !valid?(guess)  then 'invalid'
-      else                      use_attempt; [guess, reply_message(guess)]
+      else                      use_attempt; (@guess_log << [guess, reply_message(guess)]).last
       end
     end
 
