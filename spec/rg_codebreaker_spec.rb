@@ -124,7 +124,7 @@ module RgCodebreaker
 
     context '#compare' do
       it 'should return "invalid" if guess have wrong format' do
-        expect(game.compare('94j2')).to eq('invalid')
+        expect(game.compare('94j2')).to be_truthy
       end
       it 'should call hint if received "hint"' do
         allow(game).to receive(:hint).and_return("1").once

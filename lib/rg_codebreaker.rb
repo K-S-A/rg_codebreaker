@@ -3,7 +3,7 @@ require 'yaml'
 
 module RgCodebreaker
   class Game
-    attr_reader :attempts, :guess_log, :invalid
+    attr_reader :attempts, :guess_log, :invalid, :code_length
     STAT_FILE = 'statistics.rb'
 
     def start(code = nil, code_length = 4)
@@ -46,15 +46,11 @@ module RgCodebreaker
     end
 
     def exact_match(guess)
-      exact_num = 0
-      @secret_code.chars.each.with_index { |x, i| exact_num += 1 if @secret_code[i] == guess[i] }
-      exact_num
+      @secret_code.chars.zip(guess.chars).keep_if{|i| i.uniq.length == 1}.count
     end
 
     def total_match(guess)
-      total_num = 0
-      guess.chars.uniq.each { |i| total_num += [guess.count(i), @secret_code.count(i)].min }
-      total_num
+      guess.chars.uniq.inject(0){ |num, chr| num += [guess.count(chr), @secret_code.count(chr)].min }
     end
 
     def number_match(guess)
