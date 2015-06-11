@@ -3,11 +3,12 @@ require 'yaml'
 
 module RgCodebreaker
   class Game
-    attr_reader :attempts, :guess_log, :invalid, :code_length
+    attr_reader :attempts, :guess_log, :invalid, :code_length, :win
     STAT_FILE = 'statistics.rb'
 
-    def start(code = nil, code_length = 4)
-      @code_length, @attempts, @hint, @start_time, @invalid =code_length, code_length * 2, nil, Time.now, nil
+    def start(code = nil, code_length = 4, rng = 1..6)
+      @code_length, @attempts, @rng, @start_time =code_length, code_length * 2, rng, Time.now
+      @hint, @invalid, @win = nil, nil, nil
       @secret_code = code || generate_code
       @guess_log = []
       self
@@ -17,7 +18,10 @@ module RgCodebreaker
       case
       when guess == 'hint' then hint
       when !valid?(guess)  then @invalid = true
-      else                      use_attempt; @invalid = nil; @end_time = Time.now; (@guess_log << [guess, reply_message(guess)]).last
+      else
+        use_attempt; @invalid = nil; @end_time = Time.now
+        @win = true if reply_message(guess).length == @code_length && !reply_message(guess).match(/-/)
+        (@guess_log << [guess, reply_message(guess)]).last
       end
     end
 
@@ -38,11 +42,11 @@ module RgCodebreaker
     private
 
     def generate_code
-      (1..@code_length).map { (1..6).to_a.sample(1) }.join
+      (1..@code_length).map { @rng.to_a.sample(1) }.join
     end
 
     def valid?(guess)
-      guess.length == @code_length && guess.match(/[1-6]{4}/)
+      guess.length == @code_length && guess.match(/[#{@rng.first}-#{@rng.last}]{#{@code_length}}/)
     end
 
     def exact_match(guess)
@@ -66,7 +70,7 @@ module RgCodebreaker
     end
 
     def hint
-      @hint = @secret_code[rand(4)] unless @hint
+      @hint = @secret_code[rand(@code_length)] unless @hint
     end
 
   end
