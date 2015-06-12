@@ -28,11 +28,20 @@ module RgCodebreaker
     def save(name)
         stats = statistics || {}
         stats[name] = (stats[name] || []) << self
-        File.open(STAT_FILE, 'w', 0776) { |file| file.write stats.to_yaml }
+        File.open(STAT_FILE, 'w', 0776){ |file| file.write stats.to_yaml }
     end
 
     def statistics
       YAML.load_file(STAT_FILE) if File.exist?(STAT_FILE)
+    end
+
+    def statsclear
+      File.open(STAT_FILE, 'w', 0776){ |file| file.write '' }
+    end
+
+    def playerclear(name)
+      stats = (statistics || {}).reject{ |plr, gms| plr == name }
+      File.open(STAT_FILE, 'w', 0776){ |file| file.write stats.to_yaml }
     end
 
     def duration
